@@ -21,3 +21,12 @@ fun alternate (xs: int list) =
                 in
                     SOME (#1 res)
                 end
+
+fun min_max xs = if null xs then (NONE, NONE) else let
+                val tl_res = min_max (tl xs)
+                val tl_min = if isSome (#1 tl_res) then (#1 tl_res) else SOME(hd xs)
+                val tl_max = if isSome (#2 tl_res) then (#2 tl_res) else SOME(hd xs)
+            in 
+                (if not (isSome tl_min) orelse hd xs < (valOf tl_min) then SOME(hd xs) else tl_min, 
+                    if not (isSome tl_max) orelse hd xs > (valOf tl_max) then SOME(hd xs) else tl_max)
+            end
