@@ -30,3 +30,16 @@ fun min_max xs = if null xs then (NONE, NONE) else let
                 (if not (isSome tl_min) orelse hd xs < (valOf tl_min) then SOME(hd xs) else tl_min, 
                     if not (isSome tl_max) orelse hd xs > (valOf tl_max) then SOME(hd xs) else tl_max)
             end
+
+
+fun repeat (vs, ns) = 
+        if null vs andalso null ns then
+            []
+        else
+            let 
+                val tl_ans = repeat(tl vs, tl ns)
+                fun populate (v, n) =
+                        if n = 0 then [] else [v] @ populate(v, n - 1)
+            in
+                populate(hd vs, hd ns) @ tl_ans
+            end
