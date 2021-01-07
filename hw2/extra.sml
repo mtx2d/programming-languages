@@ -42,3 +42,8 @@ fun tree_height t =
     |node{value = _, left = l, right = r} => Int.max(tree_height l, tree_height r) + 1
 
 (*val mytree = node{value=3, left = node{value=2, left  = leaf, right=leaf}, right = leaf};*)
+
+fun sum_tree t =
+    case t of
+    leaf => 0
+    | node{value = v, left = l, right = r} => v + sum_tree l + sum_tree r
