@@ -130,3 +130,63 @@ fun contains (s, i) =
     | Range{from,to} => not (isEmpty s) andalso (i >= from andalso i <= to)
     | Union(s1, s2) => contains(s1, i) orelse contains(s2, i)
     | Intersection(s1, s2) => contains(s1, i) andalso contains(s2, i)
+
+
+fun toList s = 
+    let 
+        fun merge_two_sorted_list(hl::tl, hr::tr) = 
+            if hl < hr then hl::merge_two_sorted_list(tl, hr::tr) 
+            else if hl = hr then hl::merge_two_sorted_list(tl, tr) 
+            else hr::merge_two_sorted_list(tl,tr);
+        
+        (*int list -> int list*)
+        fun sort xs =
+            case xs of 
+            [] => []
+            |x::xs' => let 
+                        fun partition (xs, p) = 
+                            case xs of
+                            [] => ([], [])
+                            |x::xs' => let 
+                                        val (smaller, larger) = partition (xs', p);
+                                        in
+                                            if x < p then (x::smaller, larger) else if x > p then (smaller, x::larger) else (smaller, larger)
+                                        end
+
+                        
+                        val (smaller, larger) = partition (xs', x); 
+                        in
+                            sort(smaller) @ [x] @ sort(larger)
+                        end
+        fun uniq xs = 
+            case xs of
+            [] => []
+            | x::[] => [x]
+            | head::neck::rest => if head = neck then uniq (neck::rest) else head::(uniq (neck::rest))
+    in
+        case s of
+        Elems(xs) => uniq (sort xs) (*need to ignore duplicates*)
+        |Range{from=f, to=t} => if f = t then [t] else (toList(Range{from=f, to=t-1})) @ [t]
+        |Union(s1, s2) =>   let
+                                val l1 = toList(s1);
+                                val l2 = toList(s2);
+                                fun union(l1, l2) = 
+                                    case (l1, l2) of
+                                    ([], l2) => l2
+                                    |(l1, []) => l1
+                                    |(l1, l2) => merge_two_sorted_list(l1, l2)
+                            in
+                                union(l1, l2)
+                            end
+        |Intersection(s1, s2) => let
+                                    val l1 = toList(s1);
+                                    val l2 = toList(s2);
+                                    fun intersect (l, r) = 
+                                        case (l, r) of
+                                        ([], _) => []
+                                        |(_, []) => []
+                                        |(l, r) => merge_two_sorted_list(l, r)
+                                in
+                                    intersect(l1, l2)
+                                end
+    end
