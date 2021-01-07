@@ -61,3 +61,22 @@ fun gardener t =
                 leave_me_alone => node{value = v, left = l_pruned, right = r_pruned}
                 |prune_me => leaf
             end
+
+datatype nat = ZERO | SUCC of nat
+
+fun is_positive x =
+    case x of
+    ZERO => false
+    |SUCC(_) => true
+
+exception Negative
+
+fun pred x = 
+    case x of
+    ZERO => raise Negative
+    | SUCC(x) => x
+
+fun nat_to_int x =
+    case x of
+    ZERO => 0
+    |SUCC v => 1 + nat_to_int v
