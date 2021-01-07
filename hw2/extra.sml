@@ -109,3 +109,17 @@ fun less_than (a, b) =
     |(a, ZERO) => false
     |(ZERO, b) => true
     |(SUCC(a'), SUCC(b')) => less_than(a', b')
+
+datatype intSet = 
+  Elems of int list (*list of integers, possibly with duplicates to be ignored*)
+| Range of { from : int, to : int }  (* integers from one number to another *)
+| Union of intSet * intSet (* union of the two sets *)
+| Intersection of intSet * intSet (* intersection of the two sets *)
+
+fun isEmpty x =
+    case x of
+    Elems(xs) => null xs
+    | Range{from, to} => from >= to
+    | Union(s1, s2) => isEmpty(s1) andalso isEmpty(s2)
+    | Intersection(s1, s2) => isEmpty(s1) orelse isEmpty(s2)
+
