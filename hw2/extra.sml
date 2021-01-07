@@ -89,4 +89,11 @@ fun int_to_nat x =
 fun add (a, b) = 
     case (a, b) of
     (ZERO, ZERO) => ZERO
+    |(a, ZERO) => a
     |(a, SUCC(b')) => SUCC(add(a, b'))
+
+fun sub (a, b) = 
+    case (a, b) of
+    (ZERO, ZERO) => ZERO
+    |(a, ZERO) => a
+    |(a, SUCC(b')) => pred(sub(a, b'))
