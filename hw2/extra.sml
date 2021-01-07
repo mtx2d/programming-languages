@@ -80,3 +80,8 @@ fun nat_to_int x =
     case x of
     ZERO => 0
     |SUCC v => 1 + nat_to_int v
+
+fun int_to_nat x =
+    case x of
+    0 => ZERO
+    |x => if x < 0 then raise Negative else SUCC(int_to_nat(x - 1))
