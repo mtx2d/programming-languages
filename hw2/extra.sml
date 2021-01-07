@@ -102,3 +102,10 @@ fun mul (a, b) = case (a, b) of
     (ZERO, _) => ZERO
     |(_, ZERO) => ZERO
     |(a, SUCC(b')) => add(a, mul(a, b'))
+
+fun less_than (a, b) = 
+    case (a, b) of
+    (ZERO, ZERO) => false
+    |(a, ZERO) => false
+    |(ZERO, b) => true
+    |(SUCC(a'), SUCC(b')) => less_than(a', b')
