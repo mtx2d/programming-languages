@@ -97,3 +97,8 @@ fun sub (a, b) =
     (ZERO, ZERO) => ZERO
     |(a, ZERO) => a
     |(a, SUCC(b')) => pred(sub(a, b'))
+
+fun mul (a, b) = case (a, b) of
+    (ZERO, _) => ZERO
+    |(_, ZERO) => ZERO
+    |(a, SUCC(b')) => add(a, mul(a, b'))
