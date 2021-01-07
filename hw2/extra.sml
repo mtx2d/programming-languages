@@ -123,3 +123,10 @@ fun isEmpty x =
     | Union(s1, s2) => isEmpty(s1) andalso isEmpty(s2)
     | Intersection(s1, s2) => isEmpty(s1) orelse isEmpty(s2)
 
+fun contains (s, i) =
+    case s of
+    Elems([]) => false
+    |Elems(h::t) => (h=i) orelse contains(Elems t, i)
+    | Range{from,to} => not (isEmpty s) andalso (i >= from andalso i <= to)
+    | Union(s1, s2) => contains(s1, i) orelse contains(s2, i)
+    | Intersection(s1, s2) => contains(s1, i) andalso contains(s2, i)
