@@ -47,3 +47,17 @@ fun sum_tree t =
     case t of
     leaf => 0
     | node{value = v, left = l, right = r} => v + sum_tree l + sum_tree r
+
+(*val mytree = node{value=leave_me_alone, left = node{value=leave_me_alone, left=leaf, right=node{value=leave_me_alone, left=leaf, right=node{value=prune_me, left=leaf, right=leaf}}}, right = leaf};*)
+fun gardener t =
+        case t of
+        leaf => leaf
+        | node{value = v, left = l, right = r} =>
+            let 
+                val l_pruned = gardener l;
+                val r_pruned = gardener r;
+            in 
+                case v of
+                leave_me_alone => node{value = v, left = l_pruned, right = r_pruned}
+                |prune_me => leaf
+            end
