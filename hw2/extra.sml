@@ -30,3 +30,15 @@ fun number_misgraded xs =
                         | _ => tl_number_misgraded
             end
 (* if number_misgraded gs = 2 then "test pass" else "test fail"; *)
+
+
+datatype 'a tree = leaf
+                    |node of {value: 'a, left: 'a tree, right: 'a tree}
+datatype flag = leave_me_alone | prune_me
+
+fun tree_height t =
+    case t of
+    leaf => 0
+    |node{value = _, left = l, right = r} => Int.max(tree_height l, tree_height r) + 1
+
+(*val mytree = node{value=3, left = node{value=2, left  = leaf, right=leaf}, right = leaf};*)
