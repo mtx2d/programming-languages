@@ -85,3 +85,8 @@ fun int_to_nat x =
     case x of
     0 => ZERO
     |x => if x < 0 then raise Negative else SUCC(int_to_nat(x - 1))
+
+fun add (a, b) = 
+    case (a, b) of
+    (ZERO, ZERO) => ZERO
+    |(a, SUCC(b')) => SUCC(add(a, b'))
