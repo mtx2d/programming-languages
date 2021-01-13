@@ -16,3 +16,5 @@ fun fact n = let
 
 fun fixed_point f x = 
     do_until f (fn x => (f x) = x) x
+
+fun map2 f (x, y) = (f x, f y)
