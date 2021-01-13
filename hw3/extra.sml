@@ -13,3 +13,6 @@ fun fact n = let
              in
                  ans
              end
+
+fun fixed_point f x = 
+    do_until f (fn x => (f x) = x) x
