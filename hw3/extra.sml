@@ -18,3 +18,15 @@ fun fixed_point f x =
     do_until f (fn x => (f x) = x) x
 
 fun map2 f (x, y) = (f x, f y)
+
+(* ('a -> 'b list) -> ('c -> 'a list) -> 'c -> 'b list*)
+fun app_all f g x = 
+    let 
+        val lists = List.map f (g x);
+        fun merge ls =
+            case ls of
+            [] => []
+            | h::t => h @ (merge t)
+    in
+        merge lists
+    end
