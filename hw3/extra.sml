@@ -49,3 +49,9 @@ fun partition f xs =
                 in
                     if f x then (x::t_list, f_list) else (t_list, x::f_list)
                 end
+
+(* ('a -> ('b * 'a) option) -> 'a -> 'b list*)
+fun unfold f seed =
+        case f seed of
+        NONE => []
+        |SOME(v, new_seed) => v::(unfold f new_seed)
