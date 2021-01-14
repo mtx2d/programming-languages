@@ -64,6 +64,13 @@ fun mymap f xs = List.foldr (fn (x, y) => (f x)::y) [] xs
 fun myfilter f xs =
     List.foldr (fn (x, y) => if f x then x::y else y) [] xs
 
-fun myfoldl f init xs = NONE
+fun myfoldl f init xs = 
+    case xs of
+    [] => init
+    | x::xs' =>  let 
+                    val first = List.foldr f init [x];
+                in 
+                    myfoldl f first xs'
+                end
 
 datatype 'a tree = Empty | Node of {root:'a,  left:'a tree, right: 'a tree}
