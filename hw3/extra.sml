@@ -30,3 +30,12 @@ fun app_all f g x =
     in
         merge lists
     end
+
+fun myfoldr f init xs = 
+    case xs of
+    [] => init
+    | x::xs' => let 
+                    val rest = myfoldr f init xs'; 
+                in 
+                    f x rest
+                end
