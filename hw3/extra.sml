@@ -67,10 +67,15 @@ fun myfilter f xs =
 fun myfoldl f init xs = 
     case xs of
     [] => init
-    | x::xs' =>  let 
+    | x::xs' => let 
                     val first = List.foldr f init [x];
                 in 
                     myfoldl f first xs'
                 end
 
 datatype 'a tree = Empty | Node of {root:'a,  left:'a tree, right: 'a tree}
+
+fun tree_map f tree =
+    case tree of
+    Empty => Empty
+    | Node{root=v, left=l, right=r} => Node{root=(f v), left= tree_map f l, right = tree_map f r}
