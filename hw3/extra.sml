@@ -60,3 +60,6 @@ fun fact2 n = List.foldl (fn (x, y) => x * y) 1 (unfold (fn x => if x = 0 then N
 
 (*implement map with List.foldr*)
 fun mymap f xs = List.foldr (fn (x, y) => (f x)::y) [] xs
+
+fun myfilter f xs =
+    List.foldr (fn (x, y) => if f x then x::y else y) [] xs
