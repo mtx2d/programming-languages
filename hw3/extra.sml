@@ -39,3 +39,13 @@ fun myfoldr f init xs =
                 in 
                     f x rest
                 end
+
+(* ('a -> bool) -> 'a list -> 'a list * 'a list *)
+fun partition f xs =
+    case xs of
+    [] => ([], [])
+    | x::xs' => let 
+                    val (t_list, f_list) = partition f xs';
+                in
+                    if f x then (x::t_list, f_list) else (t_list, x::f_list)
+                end
