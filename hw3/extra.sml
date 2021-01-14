@@ -57,3 +57,6 @@ fun unfold f seed =
         |SOME(v, new_seed) => v::(unfold f new_seed)
 
 fun fact2 n = List.foldl (fn (x, y) => x * y) 1 (unfold (fn x => if x = 0 then NONE else SOME(x, x - 1)) n)
+
+(*implement map with List.foldr*)
+fun mymap f xs = List.foldr (fn (x, y) => (f x)::y) [] xs
