@@ -22,3 +22,10 @@
 
 (define pow2 (lambda (x) (lambda (y) (pow1 x y))))
 
+; Empty list: null
+; Cons constructor: cons
+; Head of a list: car 
+; Accese tail of a list: cdr
+; Check for empty: null?
+
+; append
