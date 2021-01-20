@@ -17,3 +17,13 @@ fun number_in_month (dates, target_month) =
             else
                 tl_number_in_month
         end
+
+fun number_in_months (dates, target_months) =
+    if target_months = [] orelse dates = [] then 0
+    else
+        let
+            val tm = hd target_months
+            val tl_number_in_months = number_in_months(dates, tl target_months)
+        in
+            number_in_month (dates, tm) + tl_number_in_months
+        end
