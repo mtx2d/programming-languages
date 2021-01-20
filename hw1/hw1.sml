@@ -1,15 +1,17 @@
+(*problem 1*)
 fun is_older ((y1, m1, d1), (y2, m2, d2)) = 
     if y2 > y1 then true 
     else if m2 > m1 then true 
     else if d2 > d1 then true 
     else false
 
+(*problem 2*)
 (* (int * int * int) list * int*)
 fun number_in_month (dates, target_month) =
     if dates = [] then 0
     else
         let
-            val (year, month, day) = hd dates
+            val (_, month, _) = hd dates
             val tl_number_in_month = number_in_month(tl dates, target_month)
         in
             if month = target_month then
@@ -18,6 +20,7 @@ fun number_in_month (dates, target_month) =
                 tl_number_in_month
         end
 
+(*problem 3*)
 fun number_in_months (dates, target_months) =
     if target_months = [] orelse dates = [] then 0
     else
@@ -27,3 +30,19 @@ fun number_in_months (dates, target_months) =
         in
             number_in_month (dates, tm) + tl_number_in_months
         end
+
+
+(*problem 4*)
+fun dates_in_month (dates, key_month) = 
+    if dates = [] then []
+    else
+        let
+            val (year, month, day) = hd dates
+            val tl_dates = dates_in_month (tl dates, key_month)
+        in
+            if month = key_month then
+                (year, month, day) :: tl_dates
+            else
+                tl_dates
+        end
+
