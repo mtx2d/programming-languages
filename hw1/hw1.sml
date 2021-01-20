@@ -45,7 +45,3 @@ fun dates_in_month (dates, key_month) =
             else
                 tl_dates
         end
-
-(*problem 5*)
-fun dates_in_months (dates, months) =
-    
