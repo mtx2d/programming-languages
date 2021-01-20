@@ -45,3 +45,10 @@ fun dates_in_month (dates, key_month) =
             else
                 tl_dates
         end
+
+(*problem 6*)
+fun get_nth (ss, n) =
+    if n = 1 then hd ss
+    else
+        get_nth(tl ss, n - 1)
+        
