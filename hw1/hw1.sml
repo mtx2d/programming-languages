@@ -1,8 +1,11 @@
 (*problem 1*)
-fun is_older ((y1, m1, d1), (y2, m2, d2)) = 
-    if y2 > y1 then true 
-    else if m2 > m1 then true 
-    else if d2 > d1 then true 
+fun is_older ((y1, m1, d1), (y2, m2, d2)) =
+    if y1 < y2 then true
+    else if y1 > y2 then false
+    else if m1 < m2 then true
+    else if m1 > m2 then false
+    else if d1 < d2 then true
+    else if d1 > d2 then false
     else false
 
 (*problem 2*)
@@ -108,3 +111,24 @@ fun month_range (d1, d2) =
     if d1 > d2 then []
     else
        (what_month d1) :: month_range (d1 + 1, d2)
+
+fun output_date (y, m, d) = 
+    print(Int.toString(y)^ " "^Int.toString(m) ^ " " ^Int.toString(d) ^ "\n")
+
+(*problem 11*)
+fun oldest dates = 
+    if dates = [] then NONE
+    else
+        let 
+            fun helper dates = 
+                if (length dates) = 1 then hd dates
+                else
+                    let
+                        val cnt = hd dates
+                        val tl_oldest = helper(tl dates)
+                    in
+                        if is_older(tl_oldest, cnt) then cnt else tl_oldest
+                    end
+        in
+            (output_date(helper dates);SOME(helper dates))
+        end

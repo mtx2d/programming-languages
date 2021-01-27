@@ -1,3 +1,9 @@
+val test1a = is_older ((1,2,3),(2,3,4)) = true
+val test1b = is_older ((2012,2,8),(2011,3,31)) = false
+val test1c = is_older ((2011,4,28),(2011,3,31)) = false
+val test1d = is_older ((2011,3,31),(2011,4,28)) = true
+val test1e = is_older ((1,1,1),(1,1,1)) = false
+
 val test4a = dates_in_month ([(2012,2,28),(2013,12,1)],2) = [(2012,2,28)]
 val test4b = dates_in_month ([(2012,2,28),(2013,12,1), (2012,2,21)],2) = [(2012,2,28), (2012,2,21)]
 val test4c = dates_in_month ([],2) = []
@@ -21,3 +27,5 @@ val test9b = what_month 1 = 1
 val test10a = month_range (31, 34) = [1,2,2,2]
 val test10b = month_range (31, 20) = []
 
+val test11a = oldest([(2012,2,28),(2011,3,31),(2011,4,28)]) = SOME (2011,3,31)
+val test11b = oldest([(2011,3,31),(2012,2,28),(2011,4,28)]) = SOME (2011,3,31)
