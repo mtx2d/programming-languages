@@ -102,3 +102,9 @@ fun what_month day_of_year =
     in
        number_before_reaching_sum (day_of_year, days_in_months) + 1
     end
+
+(*problem 10*)
+fun month_range (d1, d2) =
+    if d1 > d2 then []
+    else
+       (what_month d1) :: month_range (d1 + 1, d2)
