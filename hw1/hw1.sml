@@ -112,9 +112,6 @@ fun month_range (d1, d2) =
     else
        (what_month d1) :: month_range (d1 + 1, d2)
 
-fun output_date (y, m, d) = 
-    print(Int.toString(y)^ " "^Int.toString(m) ^ " " ^Int.toString(d) ^ "\n")
-
 (*problem 11*)
 fun oldest dates = 
     if dates = [] then NONE
@@ -127,8 +124,8 @@ fun oldest dates =
                         val cnt = hd dates
                         val tl_oldest = helper(tl dates)
                     in
-                        if is_older(tl_oldest, cnt) then cnt else tl_oldest
+                        if is_older(cnt, tl_oldest) then cnt else tl_oldest
                     end
         in
-            (output_date(helper dates);SOME(helper dates))
+            SOME(helper dates)
         end
