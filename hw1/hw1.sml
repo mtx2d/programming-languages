@@ -138,10 +138,12 @@ fun number_in_months_challenge (dates, months) =
             else
                 if (hd ms) = key then true else has(tl ms, key)
 
-        fun unique (ms, res) =
+        fun unique_core (ms, res) =
             if ms = [] then res
-            else if has ( res, hd ms) then unique(tl ms, res)
-            else unique(tl ms, (hd ms) :: res)
+            else if has ( res, hd ms) then unique_core(tl ms, res)
+            else unique_core(tl ms, (hd ms) :: res)
+        
+        fun unique ms = unique_core (ms, [])
     in
-        number_in_months (dates, unique (months, []))
+        number_in_months (dates, unique months)
     end
