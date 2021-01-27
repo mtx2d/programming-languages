@@ -10,3 +10,10 @@ val test6a = get_nth (["hi", "there", "how", "are", "you"], 2) = "there"
 val test6b = get_nth (["hi", "there", "how", "are", "you"], 1) = "hi" 
 
 val test7 = date_to_string (2013, 6, 1) = "June 1, 2013"
+
+val test8a = number_before_reaching_sum (10, [1,2,3,4,5]) = 3
+val test8b = number_before_reaching_sum (10, [2, 3, 4, 1, 5]) = 3
+val test8c = number_before_reaching_sum (1, [2, 3, 4, 1, 5]) = 0
+
+val test9 = what_month 70 = 3
+val test9b = what_month 1 = 1

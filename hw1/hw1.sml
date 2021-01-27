@@ -82,3 +82,23 @@ fun date_to_string date =
     in
        get_nth (months, m) ^" "^ (Int.toString d) ^", "^ (Int.toString y)
     end
+
+(*problem 8*)
+exception NotEnoughElements
+fun number_before_reaching_sum (sum, xs) = 
+    if sum <= 0 then ~1 
+    else if sum > 0 andalso xs = [] then raise NotEnoughElements
+    else
+        let
+           val cnt = hd xs
+        in
+           1 + number_before_reaching_sum (sum - cnt, tl xs)
+        end
+
+(*problem 9*)
+fun what_month day_of_year = 
+    let 
+       val days_in_months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    in
+       number_before_reaching_sum (day_of_year, days_in_months) + 1
+    end
