@@ -129,3 +129,19 @@ fun oldest dates =
         in
             SOME(helper dates)
         end
+
+(*problem 12*)
+fun number_in_months_challenge (dates, months) =
+    let
+        fun has (ms, key) =
+            if ms = [] then false
+            else
+                if (hd ms) = key then true else has(tl ms, key)
+
+        fun unique (ms, res) =
+            if ms = [] then res
+            else if has ( res, hd ms) then unique(tl ms, res)
+            else unique(tl ms, (hd ms) :: res)
+    in
+        number_in_months (dates, unique (months, []))
+    end
