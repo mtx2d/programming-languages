@@ -46,6 +46,17 @@ fun dates_in_month (dates, key_month) =
                 tl_dates
         end
 
+(*problem 5*)
+fun dates_in_months (dates, months)=
+    if months = [] then []
+    else
+        let
+            val key_month = hd months
+            val cnt = dates_in_month (dates, key_month)
+        in
+            cnt @ dates_in_months (dates, tl months)
+        end
+
 (*problem 6*)
 fun get_nth (ss, n) =
     if n = 1 then hd ss
