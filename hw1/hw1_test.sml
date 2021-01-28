@@ -34,3 +34,9 @@ val test12a = number_in_months_challenge ([(2011, 2, 21), (2011, 2, 1)], [2, 3, 
 val test12b = number_in_months_challenge ([(2011, 2, 21), (2011, 2, 1)], [1, 3, 3]) = 0
 val test12c = number_in_months_challenge ([(2011, 1, 1),(2011, 2, 1), (2011, 3, 1)], [1, 1, 2]) = 2
 val test12d = number_in_months_challenge ([(2011, 1, 1),(2011, 2, 1), (2011, 3, 1)], [1, 2, 3]) = 3
+
+
+val test13a = reasonable_date (2011, 1, 31)  = true
+val test13b = reasonable_date (1900, 2, 29)  = false
+val test13c = reasonable_date (2000, 2, 29)  = true
+val test13d = reasonable_date (1900, 2, 30)  = false

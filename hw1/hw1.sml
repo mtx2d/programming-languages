@@ -147,3 +147,22 @@ fun number_in_months_challenge (dates, months) =
     in
         number_in_months (dates, unique months)
     end
+
+fun dates_in_months_challenge (dates, months) = NONE
+
+(*problem 13*)
+fun reasonable_date date = 
+    let
+        val (y, m, d) = date
+        val days_in_months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        fun is_leap y = (y mod 4 = 0) andalso (y mod 100 <> 0 orelse y mod 400 = 0)
+            
+        fun is_valid (y, m, d) = 
+            if m = 2 then if is_leap y then d <= 29 else d < 28
+            else d <= get_nth (days_in_months, m)
+    in
+        if y <= 0 then false
+        else if m >= 12 orelse m < 1 then false
+        else if d > 31 then false
+        else is_valid date
+    end
