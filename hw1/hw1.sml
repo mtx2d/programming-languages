@@ -148,7 +148,22 @@ fun number_in_months_challenge (dates, months) =
         number_in_months (dates, unique months)
     end
 
-fun dates_in_months_challenge (dates, months) = NONE
+fun dates_in_months_challenge (dates, months) = 
+    let
+        fun has (ms, key) =
+            if ms = [] then false
+            else
+                if (hd ms) = key then true else has(tl ms, key)
+
+        fun unique_core (ms, res) =
+            if ms = [] then res
+            else if has ( res, hd ms) then unique_core(tl ms, res)
+            else unique_core(tl ms, (hd ms) :: res)
+        
+        fun unique ms = unique_core (ms, [])
+    in
+        dates_in_months (dates, unique months)
+    end
 
 (*problem 13*)
 fun reasonable_date date = 

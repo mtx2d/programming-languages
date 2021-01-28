@@ -4,6 +4,13 @@ val test1c = is_older ((2011,4,28),(2011,3,31)) = false
 val test1d = is_older ((2011,3,31),(2011,4,28)) = true
 val test1e = is_older ((1,1,1),(1,1,1)) = false
 
+val test2a = number_in_month ([(2012,2,28),(2013,12,1)],2) = 1
+val test2b = number_in_month ([(2012,2,28),(2013,12,1)],3) = 0
+
+val test3 = number_in_months ([(2012,2,28),(2013,12,1),(2011,3,31),(2011,4,28)],[2,3,4]) = 3
+
+val test4 = dates_in_month ([(2012,2,28),(2013,12,1)],2) = [(2012,2,28)]
+
 val test4a = dates_in_month ([(2012,2,28),(2013,12,1)],2) = [(2012,2,28)]
 val test4b = dates_in_month ([(2012,2,28),(2013,12,1), (2012,2,21)],2) = [(2012,2,28), (2012,2,21)]
 val test4c = dates_in_month ([],2) = []
