@@ -29,10 +29,14 @@ fun all_except_option (s, ss) =
     end
 
 (* problem 1b *)
-fun get_substitutions1(sss, s) =
+fun get_substitutions1(sss, x) =
     case sss of
         [] => []
-        | hd_ss::sss' => []
+        | ss::sss' => 
+            case all_except_option(x, ss) of
+                NONE => get_substitutions1(sss', x)
+                | SOME(lst) => lst @ get_substitutions1(sss', x)
+
 
         
 
