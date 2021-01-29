@@ -39,8 +39,19 @@ fun get_substitutions1(sss, x) =
 
 
 (* problem 1c*)
-fun get_substitutions2(sss, x) = NONE
-        
+fun get_substitutions2(sss, x) = 
+    let
+        fun helper(sss, x, accu) = 
+            case sss of
+                [] => accu
+                | ss::sss' =>
+                    case all_except_option(x, ss) of
+                        NONE => helper(sss', x, accu)
+                        | SOME(lst) => helper(sss', x, accu @ lst)
+    in
+        helper(sss, x, [])
+    end
+
 
 (* problem 1d*)
 fun similar_names(sss, {first : string, middle : string, last : string}) =
