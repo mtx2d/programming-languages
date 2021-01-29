@@ -10,3 +10,9 @@ val test1ag = all_except_option("a", ["b", "b", "b"]) = NONE
 val test1ba = get_substitutions1(
                 [["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], 
                 "Fred") = ["Fredrick", "Freddie", "F"]
+
+val test1da = similar_names([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]],
+            {first="Fred", middle="W", last="Smith"}) =  [{first="Fred", last="Smith", middle="W"},
+{first="Fredrick", last="Smith", middle="W"},
+{first="Freddie", last="Smith", middle="W"},
+{first="F", last="Smith", middle="W"}]

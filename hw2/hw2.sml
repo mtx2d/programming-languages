@@ -38,7 +38,21 @@ fun get_substitutions1(sss, x) =
                 | SOME(lst) => lst @ get_substitutions1(sss', x)
 
 
+(* problem 1c*)
+fun get_substitutions2(sss, x) = NONE
         
+
+(* problem 1d*)
+fun similar_names(sss, {first : string, middle : string, last : string}) =
+    let
+        val first_names = get_substitutions1(sss, first);
+        fun get_names first_names = 
+            case first_names of
+                [] => []
+                | fname::tl_fnames => {first=fname, middle=middle, last=last} :: (get_names tl_fnames)
+    in
+        {first=first, middle=middle, last=last} :: (get_names first_names)
+    end
 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
