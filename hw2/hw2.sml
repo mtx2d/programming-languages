@@ -7,6 +7,18 @@ fun same_string(s1 : string, s2 : string) =
     s1 = s2
 
 (* put your solutions for problem 1 here *)
+fun all_except_option (s, ss) =
+    let fun helper (s, ss) = 
+            case ss of
+                [] => [] 
+                | h::ss' => if same_string(s, h) then helper(s, ss') 
+                            else h :: helper(s, ss')
+    in
+        case helper(s, ss) of
+            [] => NONE
+            | lst =>  SOME(lst)
+    end
+        
 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
