@@ -19,3 +19,9 @@ val test1da = similar_names([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie
                                                         {first="Fredrick", last="Smith", middle="W"},
                                                         {first="Freddie", last="Smith", middle="W"},
                                                         {first="F", last="Smith", middle="W"}]
+
+val test2aa = card_color (Clubs, Jack) = Black
+val test2ab = card_color (Spades, Num 12) = Black
+val test2ac = card_color (Diamonds,Num 12) = Red
+val test2ad = card_color (Hearts,Num 12) = Red
+
