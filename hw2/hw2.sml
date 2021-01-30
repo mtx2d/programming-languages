@@ -86,5 +86,11 @@ fun card_color (suit, _ : rank) =
         | Diamonds => Red
         | Hearts => Red
 
-
+fun card_value (_ : suit, rank) =
+    case rank of
+        Jack => 10
+        | Queen => 10
+        | King => 10
+        | Ace => 11
+        | Num v => v
     
