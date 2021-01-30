@@ -77,8 +77,8 @@ datatype move = Discard of card | Draw
 exception IllegalMove
 
 (* put your solutions for problem 2 here *)
-(* problem 2a*)
 
+(* problem 2a*)
 fun card_color (suit, _ : rank) =
     case suit of
         Clubs => Black
@@ -86,6 +86,7 @@ fun card_color (suit, _ : rank) =
         | Diamonds => Red
         | Hearts => Red
 
+(* problem 2b*)
 fun card_value (_ : suit, rank) =
     case rank of
         Jack => 10
@@ -93,8 +94,16 @@ fun card_value (_ : suit, rank) =
         | King => 10
         | Ace => 11
         | Num v => v
-    
+
+(* problem 2c*)
 fun remove_card (cs, c, e) =
     case cs of
         [] => raise e
         | h::cs' => if h = c then cs' else remove_card (cs', c, e)
+
+(* problem 2d*)
+fun all_same_color cs =
+    case cs of
+        [] => true
+        |hd::[] => true
+        |head::neck::rest => card_color head = card_color neck andalso all_same_color rest

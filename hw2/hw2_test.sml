@@ -34,3 +34,9 @@ val test2ca = remove_card ([(Clubs, Num 1), (Clubs, Num 2)], (Clubs, Num 1), Ill
 val test2cb = remove_card ([(Clubs, Num 1), (Clubs, Num 1)], (Clubs, Num 1), IllegalMove) = [(Clubs, Num 1)]
 (* raise exception *)
 val test2cc = (remove_card ([(Clubs, Num 1), (Clubs, Num 1)], (Clubs, Num 2), IllegalMove) handle IllegalMove => []) = []
+
+val test2da = all_same_color [(Clubs, Ace)] = true
+val test2db = all_same_color [(Clubs, Ace), (Spades, Ace)] = true
+val test2dc = all_same_color [(Clubs, Ace), (Hearts, Ace)] = false
+val test2dd = all_same_color [(Clubs, Ace), (Clubs, Ace), (Spades, Ace)] = true
+val test2de = all_same_color [(Hearts, Ace), (Spades, Ace), (Spades, Ace)] = false
