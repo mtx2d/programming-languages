@@ -94,3 +94,7 @@ fun card_value (_ : suit, rank) =
         | Ace => 11
         | Num v => v
     
+fun remove_card (cs, c, e) =
+    case cs of
+        [] => raise e
+        | h::cs' => if h = c then cs' else remove_card (cs', c, e)

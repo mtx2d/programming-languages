@@ -29,3 +29,8 @@ val test2ba = card_value (Clubs, Jack) = 10
 val test2bb = card_value (Spades, Ace) = 11
 val test2bc = card_value (Spades, Num 9) = 9
 
+val test2ca = remove_card ([(Clubs, Num 1), (Clubs, Num 2)], (Clubs, Num 1), IllegalMove) = [(Clubs, Num 2)]
+(* remove only the first one, if more than once*)
+val test2cb = remove_card ([(Clubs, Num 1), (Clubs, Num 1)], (Clubs, Num 1), IllegalMove) = [(Clubs, Num 1)]
+(* raise exception *)
+val test2cc = (remove_card ([(Clubs, Num 1), (Clubs, Num 1)], (Clubs, Num 2), IllegalMove) handle IllegalMove => []) = []
