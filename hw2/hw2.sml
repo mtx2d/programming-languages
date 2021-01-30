@@ -119,3 +119,11 @@ fun sum_cards cs =
         helper(cs, 0)
     end
 
+(* problem 2f*)
+fun score (cs, g) =
+    let 
+        val sum = sum_cards cs
+        val preliminary_score = if sum > g then 3 * (sum - g) else (g - sum)
+    in
+        if all_same_color cs then (preliminary_score div 2) else preliminary_score
+    end

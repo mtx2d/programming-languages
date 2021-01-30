@@ -47,3 +47,7 @@ val test2ea = sum_cards [(Clubs, Ace), (Spades, Ace)] = 22
 val test2eb = sum_cards [(Clubs, Num 1), (Spades, Num 2)] = 3
 val test2ec = sum_cards [(Clubs, Jack), (Spades, Num 2)] = 12
 val test2ed = sum_cards [] = 0
+
+val test2fa = score ([(Clubs, Ace), (Hearts, Ace)], 0) = 66 
+val test2fb = score ([(Clubs, Ace), (Hearts, Ace)], 23) = 1
+val test2fc = score ([(Clubs, Ace), (Clubs, Ace)], 23) = 0
