@@ -41,3 +41,9 @@ val test2dc = all_same_color [(Clubs, Ace), (Hearts, Ace)] = false
 val test2dd = all_same_color [(Clubs, Ace), (Clubs, Ace), (Spades, Ace)] = true
 val test2de = all_same_color [(Hearts, Ace), (Spades, Ace), (Spades, Ace)] = false
 val test2df = all_same_color [(Clubs, Ace), (Clubs, Ace), (Hearts, Ace)] = false
+
+
+val test2ea = sum_cards [(Clubs, Ace), (Spades, Ace)] = 22
+val test2eb = sum_cards [(Clubs, Num 1), (Spades, Num 2)] = 3
+val test2ec = sum_cards [(Clubs, Jack), (Spades, Num 2)] = 12
+val test2ed = sum_cards [] = 0

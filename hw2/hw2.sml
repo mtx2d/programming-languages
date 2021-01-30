@@ -107,3 +107,15 @@ fun all_same_color cs =
         [] => true
         |hd::[] => true
         |head::neck::_ => card_color head = card_color neck andalso all_same_color (tl cs)
+
+(* problem 2e*)
+fun sum_cards cs =
+    let
+        fun helper(cs, accu) =
+            case cs of
+                [] => accu
+                | h::cs' => helper(cs', (card_value h) + accu)
+    in
+        helper(cs, 0)
+    end
+
