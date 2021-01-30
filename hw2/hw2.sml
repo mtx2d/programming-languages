@@ -127,3 +127,24 @@ fun score (cs, g) =
     in
         if all_same_color cs then (preliminary_score div 2) else preliminary_score
     end
+
+(* problem 2g*)
+fun officiate (cs, ms, g) =
+    let
+        fun helper (cs, ms, g, hand) =
+            case ms of
+                [] => score(hand, g)
+                | (Discard card)::ms' => helper(cs, ms', g, remove_card(hand, card, IllegalMove))
+                | Draw::ms' => 
+                    case cs of
+                        [] => score(hand, g)
+                        | card::cs' => 
+                            let
+                                val new_score = score(card::hand, g)
+                            in
+                                if  new_score > g then new_score 
+                                else helper(cs', ms', g, card::hand)
+                            end
+    in
+        helper (cs, ms, g, [] (*hand*))
+    end
