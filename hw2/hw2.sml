@@ -106,4 +106,4 @@ fun all_same_color cs =
     case cs of
         [] => true
         |hd::[] => true
-        |head::neck::rest => card_color head = card_color neck andalso all_same_color rest
+        |head::neck::_ => card_color head = card_color neck andalso all_same_color (tl cs)

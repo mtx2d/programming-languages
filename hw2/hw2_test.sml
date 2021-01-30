@@ -40,3 +40,4 @@ val test2db = all_same_color [(Clubs, Ace), (Spades, Ace)] = true
 val test2dc = all_same_color [(Clubs, Ace), (Hearts, Ace)] = false
 val test2dd = all_same_color [(Clubs, Ace), (Clubs, Ace), (Spades, Ace)] = true
 val test2de = all_same_color [(Hearts, Ace), (Spades, Ace), (Spades, Ace)] = false
+val test2df = all_same_color [(Clubs, Ace), (Clubs, Ace), (Hearts, Ace)] = false
