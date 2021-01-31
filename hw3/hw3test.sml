@@ -10,6 +10,7 @@ val test1a = only_capitals ["Aa","Bb","Cc", "d"] = ["Aa","Bb","Cc"]
 val test2 = longest_string1 ["A","bc","C"] = "bc"
 val test2a = longest_string1 [] = ""
 val test2c = longest_string1 ["", "c"] = "c"
+val test2d = longest_string1 ["aa", "cc"] = "aa"
 
 (* val test3 = longest_string2 ["A","bc","C"] = "bc"
 
