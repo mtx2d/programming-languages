@@ -52,3 +52,5 @@ val test2fa = score ([(Clubs, Ace), (Hearts, Ace)] (* 22 *), 0) = 66
 val test2fb = score ([(Clubs, Ace), (Hearts, Ace)], 23) = 1
 val test2fc = score ([(Clubs, Ace), (Clubs, Ace)], 23) = 0
 val test2fd = score ([(Clubs, Ace), (Clubs, Ace)], 22) = 0
+
+val test3a = score_challenge ([(Clubs, Ace)], 12) = 1

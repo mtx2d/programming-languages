@@ -148,3 +148,64 @@ fun officiate (cs, ms, g) =
     in
         helper (cs, ms, g, [] (*hand*))
     end
+
+
+(* problem 3a*)
+fun score_challenge (cs, g) =
+    let
+        fun helper (cs, g) = (* compute min preliminary score*)
+            case cs of
+            [] => (true, g) (* lt g, score*)
+            |(suit, rank)::cs' => 
+                                let 
+                                    val (lt, p_score) = helper(cs', g)
+                                in 
+                                    if rank <> Ace andalso lt then  (true, g - p_score + card_value(suit, rank))
+                                    else if rank <> Ace andalso not lt then (true, (p_score div 3) + g)
+                                    else (false, 3)
+                                end
+
+        val (le, score) = helper (cs, g)
+    in
+        if all_same_color cs then score div 2 else score
+    end
+
+fun officiate_challenge (cs, ms, g) =
+    let
+        fun helper (cs, ms, g, hand) =
+            case ms of
+                [] => score_challenge(hand, g)
+                | (Discard card)::ms' => helper(cs, ms', g, remove_card(hand, card, IllegalMove))
+                | Draw::ms' => 
+                    case cs of
+                        [] => score_challenge(hand, g)
+                        | card::cs' => 
+                            let
+                                val new_score = score_challenge(card::hand, g)
+                            in
+                                if  new_score > g then new_score 
+                                else helper(cs', ms', g, card::hand)
+                            end
+    in
+        helper (cs, ms, g, [] (*hand*))
+    end
+
+(* problem 3b*)
+fun careful_player (cs, g) = [Draw]
+
+
+(*
+all_except_option: Your function returns an incorrect result when the input list contains only the requested string. [incorrect answer]
+score_challenge: Your function returns an incorrect result when the sum is greater than the goal, and the hand contains cards of both colors (ace = 1). [incorrect answer]
+score_challenge: Your function returns an incorrect result when the sum is not greater than the goal, and the hand contains cards of both colors. [incorrect answer]
+score_challenge: Your function returns an incorrect result when the sum is exactly equal to the goal. [incorrect answer]
+score_challenge: Your function returns an incorrect result when you must round the score correctly. [incorrect answer]
+officiate_challenge: Your function returns an incorrect result when the game should end due to an empty card list. [incorrect answer]
+officiate_challenge: Your function returns an incorrect result when the game should end due to the sum of cards in the player's hand exceeding the goal. [incorrect answer]
+officiate_challenge: Your function returns an incorrect result when an ace is in the players hand. [incorrect answer]
+officiate_challenge: Your function returns an incorrect result when the game should end due to an empty move list with low score. [incorrect answer]
+careful_player: Your function returns an incorrect result when given a hand of [(Spades,Num 7),(Hearts,King),(Clubs,Ace),(Diamonds,Num 2)] and a goal of 18 [incorrect answer]
+careful_player: Your function returns an incorrect result when given a hand of [] and a goal of 0 [incorrect answer]
+careful_player: Your function returns an incorrect result when given a hand of [(Diamonds,Num 2),(Clubs,Ace)] and a goal of 11 [incorrect answer]
+Used illegal functions in the following problems: ['officiate', 'score', 'score_challenge', 'officiate_challenge', 'all_same_color'] 
+*)
