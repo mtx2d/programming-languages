@@ -51,3 +51,6 @@ fun logest_string_helper p ss =
 val longest_string3 = logest_string_helper (fn (x, y) => x > y)
 
 val longest_string4 = logest_string_helper (fn (x, y) => x >= y)
+
+(* problem 5*)
+val longest_capitalized = longest_string3 o only_capitals
