@@ -111,9 +111,9 @@ fun check_pat p =
 
 (* problem 11 *)
 fun match (v, p) =
-            case (v, p) of
-                  (Unit, UnitP) => SOME []
-                | (Const x, ConstP y) => SOME []
-                | (Constructor(v_name, v), Variable p_name) => SOME [(p_name, v: valu)]
-                | (Tuple vlst, TupleP plst) => all_answers match (ListPair.zip(vlst, plst))
-                | _ => NONE
+    case (v, p) of
+        (Unit, UnitP) => SOME []
+        | (Const x, ConstP y) => SOME []
+        | (Constructor(_, v), Variable p_name) => SOME [(p_name, v)]
+        | (Tuple vlst, TupleP plst) => all_answers match (ListPair.zip(vlst, plst))
+        | _ => NONE
