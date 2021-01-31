@@ -78,3 +78,8 @@ fun all_answers f xs =
     in
         helper f xs []
     end
+
+
+(* problem 9a*)
+fun count_wildcards p =
+    g (fn x => 0) (fn x => 3) p
