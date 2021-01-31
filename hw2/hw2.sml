@@ -22,8 +22,7 @@ fun all_except_option (s, ss) =
                 end
     in
         case helper(s, ss) of
-            (true, []) => NONE
-            |(true, lst) =>  SOME(lst)
+            (true, lst) =>  SOME(lst)
             |_ => NONE
 
     end
