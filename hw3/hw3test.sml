@@ -44,9 +44,11 @@ val test9a2 = count_wildcards (ConstructorP ("any_x", TupleP [Wildcard, Wildcard
 val test9b = count_wild_and_variable_lengths (Variable("a")) = 1
 val test9b1 = count_wild_and_variable_lengths (Variable("ab")) = 2
 val test9b2 = count_wild_and_variable_lengths (ConstructorP ("any_x", TupleP [Wildcard, Variable "abc"])) = 4
-(*
 
 val test9c = count_some_var ("x", Variable("x")) = 1
+val test9c1 = count_some_var ("x", TupleP [Variable("x"), Variable("x")]) = 2
+val test9c2 = count_some_var ("x", TupleP [Wildcard]) = 0
+(*
 
 val test10 = check_pat (Variable("x")) = true
 

@@ -85,3 +85,7 @@ val count_wildcards = g (fn _ => 1) (fn _ => 0)
 
 (* problem 9b*)
 val count_wild_and_variable_lengths = g (fn _ => 1) (fn name => String.size name)
+
+(* problem 9c*)
+fun count_some_var (s, p) =
+    g (fn _ => 0) (fn name => if s = name then 1 else 0) p
