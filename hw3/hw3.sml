@@ -89,3 +89,22 @@ val count_wild_and_variable_lengths = g (fn _ => 1) (fn name => String.size name
 (* problem 9c*)
 fun count_some_var (s, p) =
     g (fn _ => 0) (fn name => if s = name then 1 else 0) p
+
+(* problem 10*)
+fun check_pat p =
+    let
+        fun get_names p =
+            case p of
+                 Wildcard => []
+                | Variable x => [x]
+                | TupleP ps => List.foldl (fn (x, y) => get_names x @ y) [] ps
+                | ConstructorP(_, p) => get_names p
+                | _ => []
+        
+        fun has_repeat ss =
+            case ss of
+                 [] => false
+                |h::ss' => if List.exists (fn x => x = h) ss' then true else false
+    in 
+        if has_repeat (get_names p) then false else true
+    end

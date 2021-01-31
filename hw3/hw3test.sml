@@ -48,10 +48,13 @@ val test9b2 = count_wild_and_variable_lengths (ConstructorP ("any_x", TupleP [Wi
 val test9c = count_some_var ("x", Variable("x")) = 1
 val test9c1 = count_some_var ("x", TupleP [Variable("x"), Variable("x")]) = 2
 val test9c2 = count_some_var ("x", TupleP [Wildcard]) = 0
-(*
 
 val test10 = check_pat (Variable("x")) = true
+val test10a = check_pat (TupleP [Variable("x"), Variable("x")]) = false
+val test10b = check_pat (TupleP [Variable("x"), Variable("y")]) = true
+val test10c = check_pat (TupleP [Variable("x"), Variable("y"), Variable("x")]) = false
 
+(*
 val test11 = match (Const(1), UnitP) = NONE
 
 val test12 = first_match Unit [UnitP] = SOME [] *)
