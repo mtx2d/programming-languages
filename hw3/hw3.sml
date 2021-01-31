@@ -65,3 +65,16 @@ fun first_answer f xs =
         |h::xs' => case f h of
                         SOME(v) => v
                         | NONE => first_answer f xs'
+
+(* problem 8*)
+fun all_answers f xs =
+    let
+        fun helper f xs accu=
+            case xs of
+                [] => SOME accu
+                |h::xs' =>  case f h of
+                                NONE => NONE
+                                |SOME x => helper f xs' (accu @ x)
+    in
+        helper f xs []
+    end
