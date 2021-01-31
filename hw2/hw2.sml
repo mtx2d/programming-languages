@@ -124,7 +124,9 @@ fun score(cs, g) =
         val sum = sum_cards(cs)
         val preliminary_score = if sum > g then 3 * (sum - g) else (g - sum)
     in
-        if all_same_color(cs) then (preliminary_score div 2) else preliminary_score
+        case all_same_color(cs) of
+            true => preliminary_score div 2
+            |false => preliminary_score
     end
 
 (* problem 2g*)
