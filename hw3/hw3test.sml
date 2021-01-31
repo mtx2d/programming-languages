@@ -29,6 +29,7 @@ val test7 = first_answer (fn x => if x > 3 then SOME x else NONE) [1,2,3,4,5] = 
 val test8 = all_answers (fn x => if x = 1 then SOME [x] else NONE) [2,3,4,5,6,7] = NONE
 val test8a = all_answers (fn x => if x = 1 then SOME [x] else NONE) [] = SOME []
 val test8b = all_answers (fn x => if x > 3 then SOME [x] else NONE) [4, 5, 6, 7] = SOME [4,5,6,7]
+val test8c = all_answers (fn x => if x > 3 then SOME [x] else NONE) [3, 4, 5, 6, 7] = NONE
 (*
 
  val test9a = count_wildcards Wildcard = 1
