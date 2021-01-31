@@ -104,8 +104,8 @@ fun remove_card (cs, c, e) =
 fun all_same_color cs =
     case cs of
         [] => true
-        |hd::[] => true
-        |head::neck::_ => card_color head = card_color neck andalso all_same_color (tl cs)
+        |h::[] => true
+        |head::neck::rest => card_color head = card_color neck andalso all_same_color (neck::rest)
 
 (* problem 2e*)
 fun sum_cards cs =
@@ -119,18 +119,18 @@ fun sum_cards cs =
     end
 
 (* problem 2f*)
-fun score (cs, g) =
+fun score(cs, g) =
     let 
-        val sum = sum_cards cs
+        val sum = sum_cards(cs)
         val preliminary_score = if sum > g then 3 * (sum - g) else (g - sum)
     in
-        if all_same_color cs then (preliminary_score div 2) else preliminary_score
+        if all_same_color(cs) then (preliminary_score div 2) else preliminary_score
     end
 
 (* problem 2g*)
-fun officiate (cs, ms, g) =
+fun officiate(cs, ms, g) =
     let
-        fun helper (cs, ms, g, hand) =
+        fun helper(cs, ms, g, hand) =
             case ms of
                 [] => score(hand, g)
                 | (Discard card)::ms' => helper(cs, ms', g, remove_card(hand, card, IllegalMove))
@@ -145,7 +145,7 @@ fun officiate (cs, ms, g) =
                                 else helper(cs', ms', g, card::hand)
                             end
     in
-        helper (cs, ms, g, [] (*hand*))
+        helper(cs, ms, g, [] (*hand*))
     end
 
 
