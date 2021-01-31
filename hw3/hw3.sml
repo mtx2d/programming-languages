@@ -82,4 +82,4 @@ fun all_answers f xs =
 
 (* problem 9a*)
 fun count_wildcards p =
-    g (fn x => 0) (fn x => 3) p
+    g (fn _ => 1) (fn _ => 0) p
