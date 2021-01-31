@@ -81,5 +81,7 @@ fun all_answers f xs =
 
 
 (* problem 9a*)
-fun count_wildcards p =
-    g (fn _ => 1) (fn _ => 0) p
+val count_wildcards = g (fn _ => 1) (fn _ => 0) 
+
+(* problem 9b*)
+val count_wild_and_variable_lengths = g (fn _ => 1) (fn name => String.size name)
