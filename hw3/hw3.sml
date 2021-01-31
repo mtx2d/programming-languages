@@ -114,6 +114,8 @@ fun match (v, p) =
     case (v, p) of
         (Unit, UnitP) => SOME []
         | (Const x, ConstP y) => SOME []
+        | (Constructor(vname, v), ConstructorP(pname, p)) => match (v, p)
         | (Constructor(_, v), Variable p_name) => SOME [(p_name, v)]
         | (Tuple vlst, TupleP plst) => all_answers match (ListPair.zip(vlst, plst))
+        | (_, Wildcard) => SOME []
         | _ => NONE
