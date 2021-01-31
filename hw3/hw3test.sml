@@ -12,13 +12,14 @@ val test2a = longest_string1 [] = ""
 val test2c = longest_string1 ["", "c"] = "c"
 val test2d = longest_string1 ["aa", "cc"] = "aa"
 
-(* val test3 = longest_string2 ["A","bc","C"] = "bc"
+val test3 = longest_string2 ["A","bc","C"] = "bc"
+val test3a = longest_string2 ["aa","cc", "dd"] = "dd"
 
 val test4a = longest_string3 ["A","bc","C"] = "bc"
 
 val test4b = longest_string4 ["A","B","C"] = "C"
 
-val test5 = longest_capitalized ["A","bc","C"] = "A"
+(* val test5 = longest_capitalized ["A","bc","C"] = "A"
 
 val test6 = rev_string "abc" = "cba"
 
