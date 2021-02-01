@@ -59,5 +59,4 @@ val test11a = match (Const(1), ConstP 1) = SOME []
 val test11b = match (Constructor("x", Const 1), Variable "x") = SOME [("x", Const 1)]
 val test11c = match (Constructor("x", Const 1), Variable "y") = SOME [("y", Const 1)]
 
-(*
-val test12 = first_match Unit [UnitP] = SOME [] *)
+val test12 = first_match Unit [UnitP] = SOME []

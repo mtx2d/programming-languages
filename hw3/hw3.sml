@@ -119,3 +119,9 @@ fun match (v, p) =
         | (Tuple vlst, TupleP plst) => all_answers match (ListPair.zip(vlst, plst))
         | (_, Wildcard) => SOME []
         | _ => NONE
+
+(* problem 12*)
+(*list pair and zip things*)
+fun first_match v ps = 
+       SOME (first_answer match (map (fn p => (v, p)) ps))
+       handle NoAnswer => NONE
