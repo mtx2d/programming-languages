@@ -116,8 +116,11 @@ fun match (v, p) =
         | (v, Variable s) => SOME [(s, v)]
         | (Unit, UnitP) => SOME []
         | (Const x, ConstP y) => SOME []
-        | (Tuple vlst, TupleP plst) => all_answers match (ListPair.zip(vlst, plst))
-        | (Constructor(s1, v), ConstructorP(s2, p)) => match (v, p)
+        | (Tuple vlst, TupleP plst) => 
+            if length vlst = length plst then all_answers match (ListPair.zip(vlst, plst))
+            else NONE
+        | (Constructor(s1, v), ConstructorP(s2, p)) => 
+            if s1 = s2 then match (v, p) else NONE
         | _ => NONE
 
 (* problem 12*)
