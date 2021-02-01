@@ -122,6 +122,12 @@ fun first_match v ps =
        SOME (first_answer match (map (fn p => (v, p)) ps))
        handle NoAnswer => NONE
 
+(* alternative implementation can use a anon function to wrap match
+    fun first_match valu patlst =
+        SOME (first_answer (fn pat => match (valu,pat)) patlst)
+        handle NoAnswer => NONE
+*)
+
 
 (**** for the challenge problem only ****)
 
