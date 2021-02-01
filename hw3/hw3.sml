@@ -115,7 +115,7 @@ fun match (v, p) =
          (_, Wildcard) => SOME []
         | (v, Variable s) => SOME [(s, v)]
         | (Unit, UnitP) => SOME []
-        | (Const x, ConstP y) => SOME []
+        | (Const x, ConstP y) => if x = y then SOME [] else NONE
         | (Tuple vlst, TupleP plst) => 
             if length vlst = length plst then all_answers match (ListPair.zip(vlst, plst))
             else NONE

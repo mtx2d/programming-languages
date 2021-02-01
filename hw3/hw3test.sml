@@ -64,10 +64,18 @@ val tesat11d = match (Constructor("y",
                                             Constructor("yyy", Unit), Const 5])]), 
                       UnitP) = NONE
 
-val tesat11e = match (Constructor("y", 
-                        Tuple [Const 3, 
-                        Constructor("yy", Tuple [Unit, 
-                                            Constructor("yyy", Unit), Const 5])]), 
-                      UnitP) = NONE
+val tesat11e = match (Constructor("y", Tuple [Const 3, Constructor("yy", Tuple [Unit, Constructor("yyy", Unit), Const 5])]),
+                      ConstructorP("y", TupleP [Variable "a", Variable "b"])) 
+                      = SOME [
+                          ("a", Const 3),
+                          ("b", Constructor("yy", Tuple [Unit, Constructor("yyy", Unit), Const 5])) ]
+
+val test11f = match(Constructor("y", Tuple [Const 3, Constructor("yy", Tuple [Unit, Constructor("yyy", Unit), Const 5])]),
+                      ConstructorP("y", TupleP [Variable "a", ConstructorP("x", ConstP 3)])) = NONE
+
+val test11g = match(Constructor("y", Tuple [Const 3, Constructor("yy", Tuple [Unit, Constructor("yyy", Unit), Const 5])]),
+                      ConstructorP("y", TupleP [Variable "a", ConstructorP("yy", TupleP[Variable "b", ConstructorP("yyy", UnitP), ConstP 5])])) 
+                      = SOME [ ("a", Const 3), ("b", Unit) ]
+
 
 val test12 = first_match Unit [UnitP] = SOME []
