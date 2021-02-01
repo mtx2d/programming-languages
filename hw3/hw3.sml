@@ -39,6 +39,7 @@ fun longest_string2 ss = foldl (fn (x, y) => if String.size x >= String.size y t
 
 (* problem 4*)
 fun longest_string_helper p ss =
+    (* the y in this problem can be renamed to soFar*)
     foldl (fn (x, y) => if p (String.size x, String.size y) then x else y) "" ss
 
 val longest_string3 = longest_string_helper (fn (x, y) => x > y)
@@ -77,7 +78,7 @@ fun all_answers f xs =
 val count_wildcards = g (fn _ => 1) (fn _ => 0) 
 
 (* problem 9b*)
-val count_wild_and_variable_lengths = g (fn _ => 1) (fn name => String.size name)
+val count_wild_and_variable_lengths = g (fn _ => 1) (fn name => String.size name) (* this is unnecessary fun warpping, use String.size directly*)
 
 (* problem 9c*)
 fun count_some_var (s, p) =
