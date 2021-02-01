@@ -76,6 +76,7 @@ val test11f = match(Constructor("y", Tuple [Const 3, Constructor("yy", Tuple [Un
 val test11g = match(Constructor("y", Tuple [Const 3, Constructor("yy", Tuple [Unit, Constructor("yyy", Unit), Const 5])]),
                       ConstructorP("y", TupleP [Variable "a", ConstructorP("yy", TupleP[Variable "b", ConstructorP("yyy", UnitP), ConstP 5])])) 
                       = SOME [ ("a", Const 3), ("b", Unit) ]
+val test11h = match (Const 1, ConstP 2) = NONE
 
 
 val test12 = first_match Unit [UnitP] = SOME []
