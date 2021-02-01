@@ -26,13 +26,6 @@ fun g f1 f2 p =
 	  | _                 => 0
     end
 
-(**** for the challenge problem only ****)
-
-datatype typ = Anything
-	     | UnitT
-	     | IntT
-	     | TupleT of typ list
-	     | Datatype of string
 
 (**** you can put all your code here ****)
 (* problem 1*)
@@ -45,12 +38,12 @@ fun longest_string1 ss = foldl (fn (x, y) => if String.size x > String.size y th
 fun longest_string2 ss = foldl (fn (x, y) => if String.size x >= String.size y then x else y) "" ss
 
 (* problem 4*)
-fun logest_string_helper p ss =
+fun longest_string_helper p ss =
     foldl (fn (x, y) => if p (String.size x, String.size y) then x else y) "" ss
 
-val longest_string3 = logest_string_helper (fn (x, y) => x > y)
+val longest_string3 = longest_string_helper (fn (x, y) => x > y)
 
-val longest_string4 = logest_string_helper (fn (x, y) => x >= y)
+val longest_string4 = longest_string_helper (fn (x, y) => x >= y)
 
 (* problem 5*)
 val longest_capitalized = longest_string3 o only_capitals
@@ -127,3 +120,14 @@ fun match (v, p) =
 fun first_match v ps = 
        SOME (first_answer match (map (fn p => (v, p)) ps))
        handle NoAnswer => NONE
+
+
+(**** for the challenge problem only ****)
+
+datatype typ = Anything
+	     | UnitT
+	     | IntT
+	     | TupleT of typ list
+	     | Datatype of string
+
+fun typecheck_patterns (ss, ps) = SOME Anything
