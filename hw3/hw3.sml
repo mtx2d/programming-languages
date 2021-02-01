@@ -137,4 +137,12 @@ datatype typ = Anything
 	     | TupleT of typ list
 	     | Datatype of string
 
-fun typecheck_patterns (ss, ps) = SOME Anything
+fun typecheck_patterns (xs, ps) =
+    case xs of
+         [] => SOME Anything
+        |x::xs' =>
+                    let
+                        val (type_ctor, dtype_name, type_instance) = x
+                    in
+                        NONE 
+                    end

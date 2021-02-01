@@ -80,3 +80,11 @@ val test11h = match (Const 1, ConstP 2) = NONE
 
 
 val test12 = first_match Unit [UnitP] = SOME []
+
+val test13 = typecheck_patterns ([], [TupleP[Wildcard,Wildcard], TupleP[Variable "x", Variable "y"]])
+        = SOME(TupleT[Anything, Anything])
+
+val test13a = typecheck_patterns (
+                [("myInt", "MyNumberDataType", IntT), ("myRatio", "MyNumberDataType", TupleT[IntT, IntT])],
+                [ TupleP[Wildcard,Wildcard], TupleP[Wildcard,  TupleP[Wildcard, Wildcard]] ])
+        = SOME (TupleT[Anything, TupleT[Anything, Anything]])
