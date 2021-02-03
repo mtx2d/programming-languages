@@ -19,3 +19,15 @@
             [null? xs] (error "list-nth-mod: empty list")
             [#t] (car (list-tail xs (remainder (length xs) n)))))
 
+;; problem 4
+(define (stream-for-n-steps s n)
+    (if (= n 0) 
+        null 
+        (cons (car (s)) (stream-for-n-steps s (- n 1)))))
+
+;; problem 5
+(define (funny-number-stream)
+    (let)
+    (lambda () (cons (cond []) 
+                        funny-number-stream))
+)
