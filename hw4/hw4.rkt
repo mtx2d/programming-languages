@@ -27,7 +27,8 @@
 
 ;; problem 5
 (define (funny-number-stream)
-    (let)
+    (let ([]) 
     (lambda () (cons (cond []) 
                         funny-number-stream))
+    )
 )

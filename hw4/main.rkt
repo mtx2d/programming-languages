@@ -29,3 +29,15 @@
 ; Check for empty: null?
 
 ; append
+; use Thunk to delay computation that I do not need
+
+(define (my-delay thunk)
+    (mcons #f thunk))
+
+;; promise is a pair, first one is (false, thunk) or (true, (thunk))
+(define (my-force p)
+    (if (mcar p) 
+        (mcdr p)
+    (begin  (set-mcar! p #t)
+            (set-mcdr p ((mcdr p))) 
+            (mcdr p))))
