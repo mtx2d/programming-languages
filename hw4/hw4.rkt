@@ -30,6 +30,5 @@
 (define (funny-number-stream)
     (letrec ([f (lambda (x) 
                 (cons   (if (= (modulo x 5) 0) (- x) x) 
-                        (lambda () (f (+ x 1))))) 
-            ])
+                        (lambda () (f (+ x 1)))))])
         (f 1)))
