@@ -40,3 +40,8 @@
         (cons   x 
                 (lambda () (f (if (equal? x "dan.jpg") "dog.jpg" "dan.jpg")))))])
         (f "dan.jpg")))
+
+;; problem 7
+(define (stream-add-zero s)
+    (let* ([pr (s)] [item (car pr)] [next_s (cdr pr)])
+        (lambda () (cons (cons 0 item) (stream-add-zero next_s)))))
