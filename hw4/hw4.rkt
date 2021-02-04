@@ -32,3 +32,10 @@
                 (cons   (if (= (modulo x 5) 0) (- x) x) 
                         (lambda () (f (+ x 1)))))])
         (f 1)))
+;; Stream is a thunk, when you call it returns a pair
+
+;; problem 6
+(define (dan-then-dog)
+    (letrec ([f (lambda(x)
+        (cons x (lambda () (f (if (equal? x "dan.jpg") "dog.jpg" "dog.jpg")))))])
+        (f "dan.jpg")))
