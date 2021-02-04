@@ -41,3 +41,27 @@
     (begin  (set-mcar! p #t)
             (set-mcdr p ((mcdr p))) 
             (mcdr p))))
+
+;; Stream -> divide laybor up
+;; producer knows how to produce things
+;; Example 1: respond to user events (user mouse click; ) alternative to call back
+;; Example 2: unix pipe, the second commdn pulls from the std out of the first command (first_cmd|second_cmd)
+;; Example 3: electrical engineering -> sequential feedback circuit
+
+;; Stream as a thunk
+
+;; number-until stream tester
+(define (number-until stream tester)
+    ; (letrec ([f (lambda (stream accu) 
+    ;     (if (tester (car (stream)))
+    ;         accu
+    ;         (f stream (+ accu 1))))]))
+
+    (letrec ([f (lambda (stream accu)
+                    (let ([pr (stream)])
+                        (if (tester (car pr))
+                            accu
+                            (f (cdr pr) (+ accu 1)))))])
+    (f stream 1))
+    
+)

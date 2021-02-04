@@ -21,14 +21,15 @@
 
 ;; problem 4
 (define (stream-for-n-steps s n)
-    (if (= n 0) 
-        null 
-        (cons (car (s)) (stream-for-n-steps s (- n 1)))))
+    (let ([pr (s)])
+        (if (= n 0) 
+            null 
+            (cons (car pr) (stream-for-n-steps (cdr pr) (- n 1))))))
 
 ;; problem 5
 (define (funny-number-stream)
-    (let ([]) 
-    (lambda () (cons (cond []) 
-                        funny-number-stream))
-    )
-)
+    (letrec ([f (lambda (x) 
+                (cons   (if (= (modulo x 5) 0) (- x) x) 
+                        (lambda () (f (+ x 1))))) 
+            ])
+        (f 1)))
