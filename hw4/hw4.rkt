@@ -37,5 +37,6 @@
 ;; problem 6
 (define (dan-then-dog)
     (letrec ([f (lambda(x)
-        (cons x (lambda () (f (if (equal? x "dan.jpg") "dog.jpg" "dog.jpg")))))])
+        (cons   x 
+                (lambda () (f (if (equal? x "dan.jpg") "dog.jpg" "dan.jpg")))))])
         (f "dan.jpg")))
