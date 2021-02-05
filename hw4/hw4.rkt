@@ -48,7 +48,7 @@
 
 ;; problem 8
 (define (cycle-lists xs ys)
-    (let ([f (lambda n (list-nth-mod xs n))])
-        (f 1)
-    )
-)
+    (letrec ([g (lambda (xs ys n) 
+                (cons   (cons (list-nth-mod xs n) (list-nth-mod ys n)) 
+                        (lambda() (g xs ys (+ n 1)))))])
+                (lambda () (g xs ys 0))))
