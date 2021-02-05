@@ -48,7 +48,7 @@
 ;; Example 2: unix pipe, the second commdn pulls from the std out of the first command (first_cmd|second_cmd)
 ;; Example 3: electrical engineering -> sequential feedback circuit
 
-;; Stream as a thunk
+;; Stream as a thunk, when evaluated gives back a pair
 
 ;; number-until stream tester
 (define (number-until stream tester)
