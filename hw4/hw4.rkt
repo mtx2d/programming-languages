@@ -56,7 +56,7 @@
 ;; problem 9
 (define (vector-assoc v vec)
     (letrec ([helper (lambda (s) (if (pair? (vector-ref vec s)) 
-                            (cond [(equal? (vector-length vec) s) #f]
+                            (cond [(equal? (vector-length vec) (+ s 1)) #f]
                                 [(equal? v (car (vector-ref vec s))) (vector-ref vec s)]
                                 [#t (helper (+ s 1))] ) 
                             (helper (+ s 1))))]) 
