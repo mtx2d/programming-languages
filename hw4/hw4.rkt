@@ -52,3 +52,12 @@
                 (cons   (cons (list-nth-mod xs n) (list-nth-mod ys n)) 
                         (lambda() (g xs ys (+ n 1)))))])
                 (lambda () (g xs ys 0))))
+
+;; problem 9
+(define (vector-assoc v vec)
+    (letrec ([helper (lambda (s) (if (pair? (vector-ref vec s)) 
+                            (cond [(equal? (vector-length vec) s) #f]
+                                [(equal? v (car (vector-ref vec s))) (vector-ref vec s)]
+                                [#t (helper (+ s 1))] ) 
+                            (helper (+ s 1))))]) 
+        (helper 0)))
