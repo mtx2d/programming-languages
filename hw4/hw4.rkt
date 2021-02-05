@@ -15,9 +15,9 @@
 
 ;; problem 3
 (define (list-nth-mod xs n)
-    (cond   [negative? n] (error "list-nth-mod: negative number")
-            [null? xs] (error "list-nth-mod: empty list")
-            [#t] (car (list-tail xs (remainder (length xs) n)))))
+    (cond   [(negative? n) (error "list-nth-mod: negative number")]
+            [(null? xs) (error "list-nth-mod: empty list")]
+            [#t (car (list-tail xs (remainder n (length xs))))]))
 
 ;; problem 4
 (define (stream-for-n-steps s n)
@@ -45,3 +45,10 @@
 (define (stream-add-zero s)
     (let* ([pr (s)] [item (car pr)] [next_s (cdr pr)])
         (lambda () (cons (cons 0 item) (stream-add-zero next_s)))))
+
+;; problem 8
+(define (cycle-lists xs ys)
+    (let ([f (lambda n (list-nth-mod xs n))])
+        (f 1)
+    )
+)
