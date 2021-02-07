@@ -69,7 +69,7 @@
         (define (f x) 
             (let ([memo_lookup_res (vector-assoc x memo)])
                 (if memo_lookup_res
-                    memo_lookup_res 
+                    memo_lookup_res
                     (let ([lst_lookup_res (assoc x xs)]) 
                         (if lst_lookup_res (begin (vector-set! memo next lst_lookup_res)  ;; set cache
                                                     (set! next (modulo (+ next 1) n))   ;; increment next
