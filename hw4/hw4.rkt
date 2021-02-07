@@ -61,9 +61,7 @@
                                                                     (vector-ref vec i)
                                                                     (helper (+ i 1)))]
                                     [#t (helper (+ i 1))]))])
-        (begin (writeln (list "vector-assoc" v vec)) (helper 0))
-    )
-)
+    (helper 0)))
 
 ;; problem 10
 (define (cached-assoc xs n)
@@ -74,7 +72,7 @@
                     memo_lookup_res 
                     (let ([lst_lookup_res (assoc x xs)]) 
                         (if lst_lookup_res (begin (vector-set! memo next lst_lookup_res)  ;; set caceh
-                                                    (set! next (modulo (+ next + 1) n))   ;; increment next
+                                                    (set! next (modulo (+ next 1) n))   ;; increment next
                                                     lst_lookup_res)
                                             #f)))))
         (lambda (v) (f v))))
