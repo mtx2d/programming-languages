@@ -56,7 +56,7 @@
 ;; problem 9
 (define (vector-assoc v vec)
     (letrec ([helper (lambda (i) (cond 
-                                    [(equal? (vector-length vec) (+ i 1)) #f]
+                                    [(equal? (vector-length vec) i ) #f]
                                     [(pair? (vector-ref vec i)) (if (equal? v (car (vector-ref vec i))) 
                                                                     (vector-ref vec i)
                                                                     (helper (+ i 1)))]
@@ -76,3 +76,17 @@
                                                     lst_lookup_res)
                                             #f)))))
         (lambda (v) (f v))))
+
+; while-less: Macro terminates with #t as result (do: bad syntax   in: do) [error]
+; while-less: Evaluates e2 the correct number of times (do: bad syntax   in: do) [error]
+; while-less: Evaluates e1 only once (do: bad syntax   in: do) [error]
+; vector-assoc: Lookup should succeed (Result of (vector-assoc 5 (vector (cons 1 2) (cons (quote blah) 2) (cons 5 3))) was expected to equal '(5 . 3)) [incorrect answer]
+; vector-assoc: Lookup skips non-pairs (Result of (vector-assoc 5 (vector (quote blah) something (lambda () (quote blah)) (cons -5 3) (cons 5 2))) was expected to equal '(5 . 2)) [incorrect answer]
+; vector-assoc: Empty vector (vector-ref: index is out of range for empty vector   index: 0) [error]
+; cached-assoc: Full caching implementation (doesn't use assoc for elements in cache) [incorrect answer]
+; cached-assoc: Checks cache for answer first before using assoc (submission uses assoc after finding element in cache) [incorrect answer]
+
+; Because the auto-grader gave a score above 80, here is the link to a message from a very cute dog: https://drive.google.com/file/d/0B5sUgbs6aDNpSWhSZzVtcktDaTA/view?pref=2&pli=1
+
+
+

@@ -56,6 +56,7 @@
    (check-equal? (vector-assoc 9 (vector 0 0 0)) #f "vector-assoc test2")
    (check-equal? (vector-assoc 2 (vector 0 (cons 2 1) 0)) (cons 2 1) "vector-assoc test3")
    (check-equal? (vector-assoc 3 (vector 0 (cons 2 1) 0)) #f "vector-assoc test4")
+   (check-equal? (vector-assoc 5 (vector (cons 1 2) (cons (quote blah) 2) (cons 5 3))) (cons 5 3) "vector-assoc test5")
    
    ; cached-assoc tests
    (check-equal? ((cached-assoc (list (cons 1 2) (cons 3 4)) 3) 3) (cons 3 4) "cached-assoc test")
