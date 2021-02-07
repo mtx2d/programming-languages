@@ -53,8 +53,11 @@
    ; vector-assoc test
    (check-equal? (vector-assoc 4 (vector (cons 2 1) (cons 3 1) (cons 4 1) (cons 5 1))) (cons 4 1) "vector-assoc test")
    (check-equal? (vector-assoc 9 (vector (cons 2 1) (cons 3 1) (cons 4 1) (cons 5 1))) #f "vector-assoc test1")
+   (check-equal? (vector-assoc 9 (vector 0 0 0)) #f "vector-assoc test2")
+   (check-equal? (vector-assoc 2 (vector 0 (cons 2 1) 0)) (cons 2 1) "vector-assoc test3")
+   (check-equal? (vector-assoc 3 (vector 0 (cons 2 1) 0)) #f "vector-assoc test4")
    
-  ;  ; cached-assoc tests
+   ; cached-assoc tests
   ;  (check-equal? ((cached-assoc (list (cons 1 2) (cons 3 4)) 3) 3) (cons 3 4) "cached-assoc test")
    
   ;  ; while-less test

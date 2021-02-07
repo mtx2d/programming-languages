@@ -55,17 +55,26 @@
 
 ;; problem 9
 (define (vector-assoc v vec)
-    (letrec 
-        ([helper 
-            (lambda (s) 
-                (if (pair? (vector-ref vec s)) 
-                    (cond [(equal? (vector-length vec) (+ s 1)) #f]
-                        [(equal? v (car (vector-ref vec s))) (vector-ref vec s)]
-                        [#t (helper (+ s 1))] ) 
-                    (helper (+ s 1))))]) 
-        (helper 0)))
+    (letrec ([helper (lambda (i) (cond 
+                                    [(equal? (vector-length vec) (+ i 1)) #f]
+                                    [(pair? (vector-ref vec i)) (if (equal? v (car (vector-ref vec i))) 
+                                                                    (vector-ref vec i)
+                                                                    (helper (+ i 1)))]
+                                    [#t (helper (+ i 1))]))])
+        (begin (writeln (list "vector-assoc" v vec)) (helper 0))
+    )
+)
 
 ;; problem 10
 (define (cached-assoc xs n)
-
-)
+    (let ([memo (make-vector n)] [next 0])
+        (define (f x) 
+            (let ([memo_lookup_res (vector-assoc x memo)])
+                (if memo_lookup_res
+                    memo_lookup_res 
+                    (let ([lst_lookup_res (assoc x xs)]) 
+                        (if lst_lookup_res (begin (vector-set! memo next lst_lookup_res)  ;; set caceh
+                                                    (set! next (modulo (+ next + 1) n))   ;; increment next
+                                                    lst_lookup_res)
+                                            #f)))))
+        (lambda (v) (f v))))
