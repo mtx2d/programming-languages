@@ -83,7 +83,8 @@
         [(while-less ex do body) 
          (let ([ex_val ex]) 
             (letrec ([loop (lambda () 
-                                (if (> body ex_val) 
-                                                #t
-                                                (loop)))])
-            (loop)))]))
+                                (let ([body_val body])
+                                    (if (or (> body_val ex_val) (not (number? body_val)))
+                                        #t
+                                        (loop))))])
+                (loop)))]))
