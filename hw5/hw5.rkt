@@ -28,6 +28,10 @@
 
 ;; Problem 2
 
+(define (mupllist->racketlist xs)
+  (if (aunit? xs) null
+                 (cons (apair-e1 xs) (mupllist->racketlist (apair-e2 xs)))))
+
 ;; lookup a variable in an environment
 ;; Do NOT change this function
 (define (envlookup env str)
