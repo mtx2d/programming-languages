@@ -103,12 +103,13 @@
                                 (eval-exp e2) (eval-exp e3)))
 
 (define (mlet* lstlst e2) 
-  (letrec ([get-env (lambda (lst cnt-env) 
+  (letrec ([get-env (lambda (lst accu) 
             (if (null? lst)
-                cnt-env
-                (let* ([pr (car lst)][var (car pr)][ex (cdr pr)])
-                  (cons (cons var (eval-under-env ex cnt-env)) ;; the new pair
-                        (get-env (cdr lst) cnt-env))))
+                accu
+                (let* ([pr (car lst)][var-name (car pr)][ex (cdr pr)])
+                  (if (null? accu) 
+                      (list pr)
+                      (get-env (cdr lst) (cons accu pr)))))
               )])
               (eval-under-env e2 (get-env lstlst null))))
 
