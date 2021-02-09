@@ -99,7 +99,7 @@
 
 ;; Problem 3
 
-(define (ifaunit e1 e2 e3) (if (equal? (eval-exp e1) (int 1)) 
+(define (ifaunit e1 e2 e3) (if  (equal? (aunit) (eval-exp e1))
                                 (eval-exp e2) (eval-exp e3)))
 
 (define (mlet* lstlst e2) "CHANGE")
