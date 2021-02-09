@@ -102,7 +102,15 @@
 (define (ifaunit e1 e2 e3) (if (equal? (aunit) (eval-exp e1)) 
                                 (eval-exp e2) (eval-exp e3)))
 
-(define (mlet* lstlst e2) "CHANGE")
+(define (mlet* lstlst e2) 
+  (letrec ([get-env (lambda (lst cnt-env) 
+            (if (null? lst)
+                cnt-env
+                (let* ([pr (car lst)][var (car pr)][ex (cdr pr)])
+                  (cons (cons var (eval-under-env ex cnt-env)) ;; the new pair
+                        (get-env (cdr lst) cnt-env))))
+              )])
+              (eval-under-env e2 (get-env lstlst null))))
 
 (define (ifeq e1 e2 e3 e4) "CHANGE")
 
