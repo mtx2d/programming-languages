@@ -67,9 +67,10 @@
          (let* ([v1 (eval-under-env (mlet-e e) env)]
                [new-env (cons (cons (mlet-var e) v1) env)])
            (eval-under-env (mlet-body e) new-env))]
+        [(closure? e) e]
         [(call? e)
-         (let ([v1 (eval-under-env (call-funexp) env)]
-              [v2 (eval-under-env (call-actual) env)])
+         (let ([v1 (eval-under-env (call-funexp e) env)]
+              [v2 (eval-under-env (call-actual e) env)])
            (if (closure? v1)
                 (let* ([formal (fun-formal (closure-fun (call-funexp e)))]
                       [nameopt (fun-nameopt (closure-fun (call-funexp e)))]
@@ -79,7 +80,7 @@
                                   (cons (cons formal v2) cenv))])
                   (eval-under-env (fun-body (closure-fun (call-funexp e))) aug-cenv))
                 (error "MUPL call applied to non-closure")))]
-        ;; CHANGE add more cases here
+        [(apair? e) (apair (eval-under-env (apair-e1 e)) (eval-under-env (apair-e2 e)))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 ;; Do NOT change
