@@ -81,6 +81,10 @@
                   (eval-under-env (fun-body (closure-fun (call-funexp e))) aug-cenv))
                 (error "MUPL call applied to non-closure")))]
         [(apair? e) (apair (eval-under-env (apair-e1 e)) (eval-under-env (apair-e2 e)))]
+        [(snd? e)
+          (if (apair? (snd-e e)) 
+              (apair-e2 (snd-e e))
+              (error "MUPL snd applied to non-pair"))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 ;; Do NOT change
