@@ -63,6 +63,10 @@
                  (eval-under-env (ifgreater-e3 e) env)
                  (eval-under-env (ifgreater-e4 e) env))
                (error "MUPL ifgreater applied to non-number")))]
+        [(mlet? e)
+         (let* ([v1 (eval-under-env (mlet-e e) env)]
+               [new-env (cons (cons (mlet-var e) v1) env)])
+           (eval-under-env (mlet-body e) new-env))]
         ;; CHANGE add more cases here
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
