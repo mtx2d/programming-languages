@@ -89,6 +89,8 @@
           (if (apair? (snd-e e)) 
               (apair-e2 (snd-e e))
               (error "MUPL snd applied to non-pair"))]
+        [(isaunit? e)
+          (if (equal? (isaunit e) aunit) (int 1) (int 0))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 ;; Do NOT change
