@@ -99,6 +99,7 @@
 
 ;; Problem 3
 
+;; should I evalute (eval-exp e2) and e3?
 (define (ifaunit e1 e2 e3) (if (equal? (aunit) (eval-exp e1)) e2 e3))
 
 (define (mlet* lstlst e2) "CHANGE")
