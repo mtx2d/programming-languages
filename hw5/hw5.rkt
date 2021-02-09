@@ -20,17 +20,17 @@
 ;; a closure is not in "source" programs but /is/ a MUPL value; it is what functions evaluate to
 (struct closure (env fun) #:transparent) 
 
-;; Problem 1
-
+;; Problem 1-a
 (define (racketlist->mupllist es)
   (if (null? es) (aunit)
                  (apair (car es) (racketlist->mupllist (cdr es)))))
 
-;; Problem 2
-
+;; Problem 1-b
 (define (mupllist->racketlist xs)
   (if (aunit? xs) null
                  (cons (apair-e1 xs) (mupllist->racketlist (apair-e2 xs)))))
+
+;; Problem 2
 
 ;; lookup a variable in an environment
 ;; Do NOT change this function
@@ -54,13 +54,22 @@
                (int (+ (int-num v1) 
                        (int-num v2)))
                (error "MUPL addition applied to non-number")))]
+        [(int? e) e]
+        [(ifgreater? e)
+         (let ([v1 (eval-under-env (ifgreater-e1 e) env)]
+               [v2 (eval-under-env (ifgreater-e2 e) env)])
+           (if (and (int? v1) (int? v2)) 
+               (if (> (int-num v1) (int-num v2)) 
+                 (eval-under-env (ifgreater-e3 e) env)
+                 (eval-under-env (ifgreater-e4 e) env))
+               (error "MUPL ifgreater applied to non-number")))]
         ;; CHANGE add more cases here
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 ;; Do NOT change
 (define (eval-exp e)
   (eval-under-env e null))
-        
+
 ;; Problem 3
 
 (define (ifaunit e1 e2 e3) "CHANGE")
