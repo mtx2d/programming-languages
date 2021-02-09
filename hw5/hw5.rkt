@@ -90,7 +90,7 @@
               (apair-e2 (snd-e e))
               (error "MUPL snd applied to non-pair"))]
         [(isaunit? e)
-          (if (equal? (isaunit e) aunit) (int 1) (int 0))]
+          (if (aunit? (isaunit-e e)) (int 1) (int 0))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 ;; Do NOT change
@@ -99,7 +99,8 @@
 
 ;; Problem 3
 
-(define (ifaunit e1 e2 e3) "CHANGE")
+(define (ifaunit e1 e2 e3) (if (equal? (eval-exp e1) (int 1)) 
+                                (eval-exp e2) (eval-exp e3)))
 
 (define (mlet* lstlst e2) "CHANGE")
 
