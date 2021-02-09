@@ -106,10 +106,10 @@
   (letrec ([get-env (lambda (lst accu) 
                       (if (null? lst)
                           accu
-                          (let* ([pr (car lst)])
-                            (get-env (cdr lst) (cons pr accu)))))])
-                              (let ([myenv (get-env lstlst null)])
-                                (begin (writeln myenv) (eval-under-env e2 myenv)))))
+                          (let* ([pr (car lst)][var-name (car pr)][ex (cdr pr)])
+                            (get-env (cdr lst) (cons (cons var-name (eval-under-env ex accu)) ;; accu contains all the bindings before
+                                                     accu)))))])
+                              (eval-under-env e2 (get-env lstlst null))))
 
 (define (ifeq e1 e2 e3 e4) "CHANGE")
 
