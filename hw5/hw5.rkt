@@ -85,6 +85,10 @@
           (if (apair? (snd-e e)) 
               (apair-e2 (snd-e e))
               (error "MUPL snd applied to non-pair"))]
+        [(fst? e)
+          (if (apair? (fst-e e)) 
+              (apair-e2 (fst-e e))
+              (error "MUPL fst applied to non-pair"))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 ;; Do NOT change
