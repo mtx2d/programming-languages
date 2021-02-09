@@ -43,6 +43,7 @@
    ; mlet* test
    (check-equal? (eval-exp (mlet* (list (cons "x" (int 10))) (var "x"))) (int 10) "mlet* test")
    (check-equal? (eval-exp (mlet* (list (cons "x" (int 10)) (cons "x" (int 1))) (var "x"))) (int 1) "mlet* test1")
+   (check-equal? (eval-exp (mlet* (list (cons "x" (int 10)) (cons "y" (add (var "x") (int 1)))) (var "y"))) (int 11) "mlet* test2")
    
    ; ifeq test
   ;  (check-equal? (eval-exp (ifeq (int 1) (int 2) (int 3) (int 4))) (int 4) "ifeq test")

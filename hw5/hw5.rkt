@@ -104,14 +104,12 @@
 
 (define (mlet* lstlst e2) 
   (letrec ([get-env (lambda (lst accu) 
-            (if (null? lst)
-                accu
-                (let* ([pr (car lst)][var-name (car pr)][ex (cdr pr)])
-                  (if (null? accu) 
-                      (list pr)
-                      (get-env (cdr lst) (cons accu pr)))))
-              )])
-              (eval-under-env e2 (get-env lstlst null))))
+                      (if (null? lst)
+                          accu
+                          (let* ([pr (car lst)])
+                            (get-env (cdr lst) (cons pr accu)))))])
+                              (let ([myenv (get-env lstlst null)])
+                                (begin (writeln myenv) (eval-under-env e2 myenv)))))
 
 (define (ifeq e1 e2 e3 e4) "CHANGE")
 
