@@ -103,22 +103,18 @@
     (ifgreater (isaunit e1) (int 0) e2 e3))
 
 (define (mlet* lstlst e2) 
-  (letrec ([get-env (lambda (lst accu) 
-                      (if (null? lst)
-                          accu
-                          (let* ([pr (car lst)][var-name (car pr)][ex (cdr pr)]
-                                [new-binding (cons var-name (eval-under-env ex accu))])
-                            (get-env (cdr lst) (cons new-binding accu)))))])
-                              (eval-under-env e2 (get-env lstlst null))))
+  ;; (mlet (var "y") ey (mlet (var "x") ex e2))
+  ((let ([loop ((lambda (lst accu) 
+      (if (null lst) 
+          (cons e2 accu) 
+          (mlet )
+          (loop (cdr lst) (cons  accu))
+          ))))])
+    (loop lstlst null)))
+)
 
 (define (ifeq e1 e2 e3 e4) 
-  (let ([v1 (eval-exp e1)][v2 (eval-exp e2)])
-    (if (and (int? v1) (int? v2)) 
-      (eval-exp 
-        (if (equal? (int-num v1) (int-num v2)) 
-          (mlet (var "_x") v1 (mlet (var "_y") v2 e3))
-          (mlet (var "_x") v1 (mlet (var "_y") v2 e4))))
-      (error "MUPL ifeq applied to non number"))))
+  )
 
 ;; Problem 4
 
