@@ -77,21 +77,24 @@
                       [nameopt (fun-nameopt (closure-fun v1))]
                       [cenv (closure-env v1)]
                       [aug-cenv (if nameopt 
-                                  (cons (cons nameopt v1) (cons formal v2) cenv) 
+                                  (cons (cons nameopt v1) (cons (cons formal v2) cenv)) 
                                   (cons (cons formal v2) cenv))])
                   (eval-under-env (fun-body (closure-fun v1)) aug-cenv))
                 (error "MUPL call applied to non-closure")))]
-        [(apair? e) (apair (eval-under-env (apair-e1 e)) (eval-under-env (apair-e2 e)))]
+        [(apair? e) (apair (eval-under-env (apair-e1 e) env) (eval-under-env (apair-e2 e) env))]
         [(fst? e)
-          (if (apair? (fst-e e)) 
-              (apair-e2 (fst-e e))
-              (error "MUPL fst applied to non-pair"))]
+          (let ([v1 (eval-under-env (fst-e e) env)])
+            (if (apair? v1) 
+              (apair-e1 v1)
+              (error "MUPL fst applied to non-pair")))]
         [(snd? e)
-          (if (apair? (snd-e e)) 
-              (apair-e2 (snd-e e))
-              (error "MUPL snd applied to non-pair"))]
+          (let ([v1 (eval-under-env (snd-e e) env)])
+            (if (apair? v1) 
+              (apair-e2 v1)
+              (error "MUPL snd applied to non-pair"))) ]
         [(isaunit? e)
           (if (aunit? (isaunit-e e)) (int 1) (int 0))]
+        [(aunit? e) e]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 ;; Do NOT change
