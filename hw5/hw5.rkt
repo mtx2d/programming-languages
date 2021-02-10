@@ -118,12 +118,14 @@
 
 ;; Problem 4
 
-(define mupl-map (f)
-  (let ([fun-exp (fun #f f (fun "loop" lst
-                  (ifeq (isaunit (fst lst)) (int 1)
-                        (aunit)
-                        (apair (call f (fst lst)) (call (var "loop") (snd lst))))))]))
-    )
+(define mupl-map ;; f
+  (fun "loop" "lst"
+      (ifeq (isaunit (fst (var "lst"))) (int 1)
+            (aunit)
+            (apair (call (var "f") (fst (var "lst"))) (call (var "loop") (snd (var "lst"))))))
+            
+  
+            )
 
 (define mupl-mapAddN
   (mlet "map" mupl-map
