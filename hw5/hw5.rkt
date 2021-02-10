@@ -73,13 +73,13 @@
          (let ([v1 (eval-under-env (call-funexp e) env)]
               [v2 (eval-under-env (call-actual e) env)])
            (if (closure? v1)
-                (let* ([formal (fun-formal (closure-fun (call-funexp e)))]
-                      [nameopt (fun-nameopt (closure-fun (call-funexp e)))]
-                      [cenv (closure-env (call-funexp e))]
+                (let* ([formal (fun-formal (closure-fun v1))]
+                      [nameopt (fun-nameopt (closure-fun v1))]
+                      [cenv (closure-env v1)]
                       [aug-cenv (if nameopt 
                                   (cons (cons nameopt v1) (cons formal v2) cenv) 
                                   (cons (cons formal v2) cenv))])
-                  (eval-under-env (fun-body (closure-fun (call-funexp e))) aug-cenv))
+                  (eval-under-env (fun-body (closure-fun v1)) aug-cenv))
                 (error "MUPL call applied to non-closure")))]
         [(apair? e) (apair (eval-under-env (apair-e1 e)) (eval-under-env (apair-e2 e)))]
         [(fst? e)
