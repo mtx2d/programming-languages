@@ -103,18 +103,14 @@
     (ifgreater (isaunit e1) (int 0) e2 e3))
 
 (define (mlet* lstlst e2) 
-  ;; (mlet (var "y") ey (mlet (var "x") ex e2))
-  ((let ([loop ((lambda (lst accu) 
-      (if (null lst) 
-          (cons e2 accu) 
-          (mlet )
-          (loop (cdr lst) (cons  accu))
-          ))))])
-    (loop lstlst null)))
-)
+  (letrec ([loop (lambda (lst) 
+                (if (null? lst) 
+                    e2
+                    (mlet (caar lst) (cdar lst) (loop (cdr lst)))))])
+          (loop lstlst))) 
 
-(define (ifeq e1 e2 e3 e4) 
-  )
+
+(define (ifeq e1 e2 e3 e4) (int 1))
 
 ;; Problem 4
 
