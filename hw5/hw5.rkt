@@ -55,6 +55,7 @@
                        (int-num v2)))
                (error "MUPL addition applied to non-number")))]
         [(int? e) e]
+        [(fun? e) (closure env fun)]
         [(ifgreater? e)
          (let ([v1 (eval-under-env (ifgreater-e1 e) env)]
                [v2 (eval-under-env (ifgreater-e2 e) env)])
@@ -117,9 +118,14 @@
 
 ;; Problem 4
 
-(define mupl-map "CHANGE")
+(define mupl-map (f)
+  (let ([fun-exp (fun #f f (fun "loop" lst
+                  (ifeq (isaunit (fst lst)) (int 1)
+                        (aunit)
+                        (apair (call f (fst lst)) (call (var "loop") (snd lst))))))]))
+    (closure (cons "loop" fun-exp) (fun (var "loop") lst)))
 
-(define mupl-mapAddN 
+(define mupl-mapAddN
   (mlet "map" mupl-map
         "CHANGE (notice map is now in MUPL scope)"))
 
