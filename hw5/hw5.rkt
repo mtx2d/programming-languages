@@ -118,8 +118,7 @@
         (if (equal? (int-num v1) (int-num v2)) 
           (mlet (var "_x") v1 (mlet (var "_y") v2 e3))
           (mlet (var "_x") v1 (mlet (var "_y") v2 e4))))
-      (error "MUPL ifeq applied to non number"))
-  ))
+      (error "MUPL ifeq applied to non number"))))
 
 ;; Problem 4
 
