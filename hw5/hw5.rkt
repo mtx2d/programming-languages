@@ -123,7 +123,7 @@
 
 ;; Problem 4
 
-(define mupl-map ;; f
+(define mupl-map
   (fun #f "f"
     (fun "loop" "lst"
         (ifgreater (isaunit (var "lst")) (int 0)
