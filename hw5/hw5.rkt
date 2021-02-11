@@ -130,19 +130,13 @@
               (aunit)
               (apair (call (var "f") (fst (var "lst"))) (call (var "loop") (snd (var "lst")))))) 
   ))
-;;;
-; (call (fun "loop" "lst"
-;    (ifgreater
-;     (isaunit (var "lst"))
-;     (int 0)
-;     (aunit)
-;     (apair
-;      (call (fun #f "x" (add (var "x") (int 7))) (fst (var "lst")))
-;      (call (var "loop") (snd (var "lst")))))) (apair (int 8) (aunit)))
 
 (define mupl-mapAddN
   (mlet "map" mupl-map
-        "CHANGE (notice map is now in MUPL scope)"))
+    (fun #f "i"
+      (call (var "map") (fun #f "x" (add (var "x") (var "i"))))
+    )
+))
 
 ;; Challenge Problem
 
