@@ -44,7 +44,7 @@
 ;; We will test eval-under-env by calling it directly even though
 ;; "in real life" it would be a helper function of eval-exp.
 (define (eval-under-env e env)
-  (cond [(var? e) 
+(begin (writeln "start") (writeln e) (writeln "---") (writeln env) (writeln "end") (cond [(var? e) 
          (envlookup env (var-string e))]
         [(add? e) 
          (let ([v1 (eval-under-env (add-e1 e) env)]
@@ -75,18 +75,19 @@
            (if (closure? v1)
                 (let* ([formal (fun-formal (closure-fun v1))]
                       [nameopt (fun-nameopt (closure-fun v1))]
+                      [body (fun-body (closure-fun v1))]
                       [cenv (closure-env v1)]
                       [aug-cenv (if nameopt 
                                   (cons (cons nameopt v1) (cons (cons formal v2) cenv)) 
                                   (cons (cons formal v2) cenv))])
-                  (eval-under-env (fun-body (closure-fun v1)) aug-cenv))
+                  (eval-under-env body aug-cenv))
                 (error "MUPL call applied to non-closure")))]
         [(apair? e) (apair (eval-under-env (apair-e1 e) env) (eval-under-env (apair-e2 e) env))]
         [(fst? e)
           (let ([v1 (eval-under-env (fst-e e) env)])
             (if (apair? v1) 
               (apair-e1 v1)
-              (error "MUPL fst applied to non-pair")))]
+              (begin (error "MUPL fst applied to non-pair"))))]
         [(snd? e)
           (let ([v1 (eval-under-env (snd-e e) env)])
             (if (apair? v1) 
@@ -96,6 +97,7 @@
           (if (aunit? (isaunit-e e)) (int 1) (int 0))]
         [(aunit? e) e]
         [#t (error (format "bad MUPL expression: ~v" e))]))
+  )
 
 ;; Do NOT change
 (define (eval-exp e)
@@ -124,10 +126,19 @@
 (define mupl-map ;; f
   (fun #f "f"
     (fun "loop" "lst"
-        (ifgreater (isaunit (fst (var "lst"))) (int 0)
+        (ifgreater (isaunit (var "lst")) (int 0)
               (aunit)
               (apair (call (var "f") (fst (var "lst"))) (call (var "loop") (snd (var "lst")))))) 
   ))
+;;;
+; (call (fun "loop" "lst"
+;    (ifgreater
+;     (isaunit (var "lst"))
+;     (int 0)
+;     (aunit)
+;     (apair
+;      (call (fun #f "x" (add (var "x") (int 7))) (fst (var "lst")))
+;      (call (var "loop") (snd (var "lst")))))) (apair (int 8) (aunit)))
 
 (define mupl-mapAddN
   (mlet "map" mupl-map
