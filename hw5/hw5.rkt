@@ -44,7 +44,8 @@
 ;; We will test eval-under-env by calling it directly even though
 ;; "in real life" it would be a helper function of eval-exp.
 (define (eval-under-env e env)
-(begin (writeln "start") (writeln e) (writeln "---") (writeln env) (writeln "end") (cond [(var? e) 
+(begin 
+(cond [(var? e) 
          (envlookup env (var-string e))]
         [(add? e) 
          (let ([v1 (eval-under-env (add-e1 e) env)]
@@ -94,7 +95,7 @@
               (apair-e2 v1)
               (error "MUPL snd applied to non-pair"))) ]
         [(isaunit? e)
-          (if (aunit? (isaunit-e e)) (int 1) (int 0))]
+          (if (aunit? (eval-under-env (isaunit-e e) env)) (int 1) (int 0))]
         [(aunit? e) e]
         [#t (error (format "bad MUPL expression: ~v" e))]))
   )
