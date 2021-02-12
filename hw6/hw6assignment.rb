@@ -7,16 +7,39 @@ class MyPiece < Piece
   # The constant All_My_Pieces should be declared here
 
   # your enhancements here
+  # class array holding all the pieces and their rotations
+  Piece::All_Pieces.push(
+    [
+      [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]],
+      [[0, 0], [0, 1], [1, 0], [1, 1], [1, 2]], 
+      [[0, 0], [1, 0], [1, 1]]
+    ]
+  )
 
 end
 
 class MyBoard < Board
   # your enhancements here
-
+  def initialize (game)
+    @grid = Array.new(num_rows) {Array.new(num_columns)}
+    @current_block = MyPiece.next_piece(self)
+    @score = 0
+    @game = game
+    @delay = 500
+  end
+   
 end
 
 class MyTetris < Tetris
   # your enhancements here
+  # creates a canvas and the board that interacts with it
+  def set_board
+    @canvas = TetrisCanvas.new
+    @board = MyBoard.new(self)
+    @canvas.place(@board.block_size * @board.num_rows + 3,
+                  @board.block_size * @board.num_columns + 6, 24, 80)
+    @board.draw
+  end
 
   def key_bindings  
     @root.bind('n', proc {self.new_game}) 
