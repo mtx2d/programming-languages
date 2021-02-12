@@ -4,18 +4,19 @@
 # part of your solution.
 
 class MyPiece < Piece
-  # The constant All_My_Pieces should be declared here
-
   # your enhancements here
-  # class array holding all the pieces and their rotations
-  Piece::All_Pieces.push(
-    [
-      [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]],
-      [[0, 0], [0, 1], [1, 0], [1, 1], [1, 2]], 
-      [[0, 0], [1, 0], [1, 1]]
-    ]
-  )
+  All_My_Pieces = Piece::All_Pieces.clone
+  def initialize (point_array, board)
+    super
+    All_My_Pieces.push([[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]])
+    All_My_Pieces.push([[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0]])
+    All_My_Pieces.push(Piece::rotations([[-1, 0], [0, 0], [-1, 1], [0, -1], [1, -1]]))
+    All_My_Pieces.push([[0, 0], [0, 1], [1, 1]])
+  end
 
+  def self.next_piece (board)
+    MyPiece.new(All_My_Pieces.sample, board)
+  end
 end
 
 class MyBoard < Board
@@ -42,25 +43,7 @@ class MyTetris < Tetris
   end
 
   def key_bindings  
-    @root.bind('n', proc {self.new_game}) 
-
-    @root.bind('p', proc {self.pause}) 
-
-    @root.bind('q', proc {exitProgram})
-    
-    @root.bind('a', proc {@board.move_left})
-    @root.bind('Left', proc {@board.move_left}) 
-    
-    @root.bind('d', proc {@board.move_right})
-    @root.bind('Right', proc {@board.move_right}) 
-
-    @root.bind('s', proc {@board.rotate_clockwise})
-    @root.bind('Down', proc {@board.rotate_clockwise})
-
-    @root.bind('w', proc {@board.rotate_counter_clockwise})
-    @root.bind('Up', proc {@board.rotate_counter_clockwise}) 
-    
-    @root.bind('space' , proc {@board.drop_all_the_way}) 
+    super
     @root.bind('u', proc {
                     @board.rotate_counter_clockwise
                     @board.rotate_counter_clockwise})
