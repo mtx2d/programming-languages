@@ -36,7 +36,12 @@ class MyBoard < Board
   end
 
   def next_piece
-    @current_block = MyPiece.next_piece(self)
+    if @cheat_round
+      @current_block = MyPiece.new([[0, 0]], self)
+      @cheat_round = false
+    else
+      @current_block = MyPiece.next_piece(self)
+    end
     @current_pos = nil
   end
 
@@ -53,6 +58,13 @@ class MyBoard < Board
     remove_filled
     @delay = [@delay - 2, 80].max
   end 
+
+  def cheat
+    if @score >= 100
+      @cheat_round = true
+      @score -= 100
+    end
+  end
 end
 
 class MyTetris < Tetris
@@ -71,6 +83,7 @@ class MyTetris < Tetris
     @root.bind('u', proc {
                     @board.rotate_counter_clockwise
                     @board.rotate_counter_clockwise})
+    @root.bind('c', proc {@board.cheat})
   end
 
 end
