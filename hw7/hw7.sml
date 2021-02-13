@@ -19,6 +19,7 @@ datatype geom_exp =
 	 | Intersect of geom_exp * geom_exp (* intersection expression *)
 	 | Let of string * geom_exp * geom_exp (* let s = e1 in e2 *)
 	 | Var of string
+	 | Shift of real * real * geom_exp
 (* CHANGE add shifts for expressions of the form Shift(deltaX, deltaY, exp *)
 
 exception BadProgram of string
@@ -198,3 +199,18 @@ fun eval_prog (e,env) =
 (* CHANGE: Add a case for Shift expressions *)
 
 (* CHANGE: Add function preprocess_prog of type geom_exp -> geom_exp *)
+fun processing_prog e = 
+    case e of
+  NoPoints => e
+    | Point _ => e
+    | Line _ => e
+    | VerticalLine _ => e
+    | LineSegment (x1, y1, x2, y2) => case (real_close_point (x1, y1) (x2, y2)) of
+                                      true => Point (x1, y1)
+                                      | false =>  if real_close (x1, x2) then 
+                                                      if y1 < y2 then LineSegment(x1, y1, x2, y2) 
+                                                                  else LineSegment(x2, y2, x1, y1)
+                                                  else if x1 < x2 then LineSegment(x1, y1, x2, y2)
+                                                  else LineSegment(x2, y2, x1, y1)
+		| _ => e
+

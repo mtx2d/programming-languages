@@ -1,0 +1,2 @@
+test:
+	cat hw7tests.sml | sml
