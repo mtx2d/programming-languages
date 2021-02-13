@@ -235,6 +235,7 @@ class Board
   # removes all filled rows and replaces them with empty ones, dropping all rows
   # above them down each time a row is removed and increasing the score.  
   def remove_filled
+    # puts "#{@grid}"
     (2..(@grid.size-1)).each{|num| row = @grid.slice(num);
       # see if this row is full (has no nil)
       if @grid[num].all?
