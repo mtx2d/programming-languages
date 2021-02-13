@@ -4,31 +4,29 @@
 # part of your solution.
 
 class MyPiece < Piece
-  # your enhancements here
-  All_My_Pieces = Piece::All_Pieces.clone
-  def initialize (point_array, board)
-    super
-    All_My_Pieces.push([[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]])
-    All_My_Pieces.push([[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0]])
-    All_My_Pieces.push(Piece::rotations([[-1, 0], [0, 0], [-1, 1], [0, -1], [1, -1]]))
-    All_My_Pieces.push([[0, 0], [0, 1], [1, 1]])
-  end
+    # class array holding all the pieces and their rotations
+  All_My_Pieces = [[[[0, 0], [1, 0], [0, 1], [1, 1]]],  # square (only needs one)
+               Piece::rotations([[-1, 0], [0, 0], [-1, 1], [0, -1], [1, -1]], # squarT
+              )]
+  # All_My_Pieces.push([[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]])
+  # All_My_Pieces.push([[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0]])
+  # All_My_Pieces.push([[0, 0], [0, 1], [1, 1]])
 
   def self.next_piece (board)
     MyPiece.new(All_My_Pieces.sample, board)
   end
 end
 
+# can derived class affect parent class's fields?
+# if so how can I affect it?
+# class inherits method definitions but how about fields?
 class MyBoard < Board
   # your enhancements here
   def initialize (game)
-    @grid = Array.new(num_rows) {Array.new(num_columns)}
+    super(game)
     @current_block = MyPiece.next_piece(self)
-    @score = 0
-    @game = game
-    @delay = 500
   end
-   
+  
 end
 
 class MyTetris < Tetris
