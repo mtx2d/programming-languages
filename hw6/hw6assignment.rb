@@ -6,18 +6,17 @@
 class MyPiece < Piece
   # class array holding all the pieces and their rotations
   All_My_Pieces = [
-    rotations([[0, 0], [1, 0], [0, 1], [1, 1], [2, 1]]), # fat T
-    rotations([[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]]), # long stick
-    rotations([[0, 0], [0, 1], [1, 1]]), # three dots
-[[[0, 0], [1, 0], [0, 1], [1, 1]]],  # square (only needs one)
-               rotations([[0, 0], [-1, 0], [1, 0], [0, -1]]), # T
-               [[[0, 0], [-1, 0], [1, 0], [2, 0]], # long (only needs two)
-               [[0, 0], [0, -1], [0, 1], [0, 2]]],
-               rotations([[0, 0], [0, -1], [0, 1], [1, 1]]), # L
-               rotations([[0, 0], [0, -1], [0, 1], [-1, 1]]), # inverted L
-               rotations([[0, 0], [-1, 0], [0, -1], [1, -1]]), # S
-               rotations([[0, 0], [1, 0], [0, -1], [-1, -1]])
-  ]
+              rotations([[0, 0], [1, 0], [0, 1], [1, 1], [2, 1]]), # fat T
+              rotations([[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]]), # long stick
+              rotations([[0, 0], [0, 1], [1, 1]]), # three dots
+              [[[0, 0], [1, 0], [0, 1], [1, 1]]],  # square (only needs one)
+              rotations([[0, 0], [-1, 0], [1, 0], [0, -1]]), # T
+              [[[0, 0], [-1, 0], [1, 0], [2, 0]], # long (only needs two)
+              [[0, 0], [0, -1], [0, 1], [0, 2]]],
+              rotations([[0, 0], [0, -1], [0, 1], [1, 1]]), # L
+              rotations([[0, 0], [0, -1], [0, 1], [-1, 1]]), # inverted L
+              rotations([[0, 0], [-1, 0], [0, -1], [1, -1]]), # S
+              rotations([[0, 0], [1, 0], [0, -1], [-1, -1]])]
 
 
   def self.next_piece (board)
@@ -26,8 +25,6 @@ class MyPiece < Piece
 end
 
 # can derived class affect parent class's fields?
-# if so how can I affect it?
-# class inherits method definitions but how about fields?
 class MyBoard < Board
   # your enhancements here
   def initialize (game)
@@ -55,9 +52,7 @@ class MyBoard < Board
     }
     remove_filled
     @delay = [@delay - 2, 80].max
-  end
-
-  
+  end 
 end
 
 class MyTetris < Tetris
