@@ -201,13 +201,8 @@ fun eval_prog (e,env) =
 (* CHANGE: Add function preprocess_prog of type geom_exp -> geom_exp *)
 fun processing_prog e = 
     case e of
-  NoPoints => e
-    | Point _ => e
-    | Line _ => e
-    | VerticalLine _ => e
-    | LineSegment (x1, y1, x2, y2) => case (real_close_point (x1, y1) (x2, y2)) of
-                                      true => Point (x1, y1)
-                                      | false =>  if real_close (x1, x2) then 
+    LineSegment (x1, y1, x2, y2) => if (real_close_point (x1, y1) (x2, y2)) then Point (x1, y1) 
+																			else if real_close (x1, x2) then 
                                                       if y1 < y2 then LineSegment(x1, y1, x2, y2) 
                                                                   else LineSegment(x2, y2, x1, y1)
                                                   else if x1 < x2 then LineSegment(x1, y1, x2, y2)
