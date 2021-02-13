@@ -4,13 +4,8 @@
 # part of your solution.
 
 class MyPiece < Piece
-    # class array holding all the pieces and their rotations
-  All_My_Pieces = [[[[0, 0], [1, 0], [0, 1], [1, 1]]],  # square (only needs one)
-               Piece::rotations([[-1, 0], [0, 0], [-1, 1], [0, -1], [1, -1]], # squarT
-              )]
-  # All_My_Pieces.push([[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]])
-  # All_My_Pieces.push([[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0]])
-  # All_My_Pieces.push([[0, 0], [0, 1], [1, 1]])
+  # class array holding all the pieces and their rotations
+  All_My_Pieces = [Piece.rotations([[-1, 0], [0, 0], [-1, 1], [0, -1], [1, -1]])]
 
   def self.next_piece (board)
     MyPiece.new(All_My_Pieces.sample, board)
@@ -23,8 +18,16 @@ end
 class MyBoard < Board
   # your enhancements here
   def initialize (game)
-    super(game)
+    @grid = Array.new(num_rows) {Array.new(num_columns)}
     @current_block = MyPiece.next_piece(self)
+    @score = 0
+    @game = game
+    @delay = 500
+  end
+
+  def next_piece
+    @current_block = MyPiece.next_piece(self)
+    @current_pos = nil
   end
   
 end
