@@ -138,6 +138,23 @@ class Point < GeometryValue
   def intersectPoint p
     if real_close_point(self.x, self.y, p.x, p.y) then self else NoPoints.new end
   end
+
+  def intersectLine line
+    if real_close(y, line.m * x + line.b)
+      self
+    else
+      NoPoints.new()
+    end
+  end
+  
+  def intersectVerticalLine vl
+    if real_close(x, vl.x)
+      self
+    else
+      NoPoints.new()
+    end
+  end
+
 end
 
 class Line < GeometryValue
@@ -165,18 +182,30 @@ class Line < GeometryValue
     other.intersectLine self
   end
 
+  def intersectPoint p
+    if real_close(p.y, m * p.x + b)
+      p
+    else
+      NoPoints.new()
+    end
+  end
+
   def intersectLine l
     if real_close(m, l.m)
       if real_close(b, l.b)
         self
       else
-        NoPoints.new
+        NoPoints.new()
       end
     else
       x = (l.b - b) / (m - l.m)
       y = m * x + b
       Point.new(x, y)
     end
+  end
+
+  def intersectVerticalLine vl
+    Point.new(vl.x, m * vl.x + b)
   end
 end
 
@@ -204,11 +233,23 @@ class VerticalLine < GeometryValue
     other.intersectVerticalLine self
   end
 
+  def intersectPoint p
+    if real_close(x, p.x)
+      p
+    else
+      NoPoints.new()
+    end
+  end
+
+  def intersectLine l
+    l.intersectVerticalLine(self)
+  end
+
   def intersectVerticalLine vl
     if real_close(x, vl.x)
       x
     else
-      NoPoints.new
+      NoPoints.new()
     end
   end
 end
