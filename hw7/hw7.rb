@@ -118,6 +118,18 @@ class Point < GeometryValue
     @x = x
     @y = y
   end
+
+  def eval_prog env
+    self
+  end
+
+  def preprocess_prog
+    self
+  end
+
+  def shift(dx, dy)
+    Point.new(x + dx, y + dy)
+  end 
 end
 
 class Line < GeometryValue
@@ -128,6 +140,18 @@ class Line < GeometryValue
     @m = m
     @b = b
   end
+
+  def eval_prog env
+    self
+  end
+
+  def preprocess_prog
+    self
+  end
+
+  def shift(dx, dy)
+    Line.new(m, b + dy - m * dx)
+  end
 end
 
 class VerticalLine < GeometryValue
@@ -136,6 +160,18 @@ class VerticalLine < GeometryValue
   attr_reader :x
   def initialize x
     @x = x
+  end
+
+  def eval_prog env
+    self
+  end
+
+  def preprocess_prog
+    self
+  end
+
+  def shift(dx, dy)
+    VerticalLine.new(x + dx)
   end
 end
 
@@ -152,6 +188,24 @@ class LineSegment < GeometryValue
     @x2 = x2
     @y2 = y2
   end
+
+  def eval_prog env
+    self
+  end
+
+  def preprocess_prog
+    if real_close_point(x1, y1, x2, y2) then Point.new(x1, y1)
+    elsif real_close(x1, x2) then 
+      if y1 < y2 then LineSegement.new(x1, y1, x2, y2)
+      else LineSegement.new(x2, y2, x1, y1) end
+    elsif x1 < x2 then LineSegement.new(x1, y1, x2, y2)
+    else LineSegement.new(x2, y2, x1, y1) end
+  end
+
+  def shift(dx, dy)
+    LineSegement.new(x1 + dx, y1 + dy, x2 + dx, y2 + dy)
+  end
+
 end
 
 # Note: there is no need for getter methods for the non-value classes
@@ -162,6 +216,14 @@ class Intersect < GeometryExpression
   def initialize(e1,e2)
     @e1 = e1
     @e2 = e2
+  end
+
+  def preprocess_prog
+    self
+  end
+  
+  def eval_prog env
+
   end
 end
 
