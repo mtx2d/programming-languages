@@ -203,6 +203,14 @@ class VerticalLine < GeometryValue
   def intersect other
     other.intersectVerticalLine self
   end
+
+  def intersectVerticalLine vl
+    if real_close(x, vl.x)
+      x
+    else
+      NoPoints.new
+    end
+  end
 end
 
 class LineSegment < GeometryValue
@@ -226,20 +234,19 @@ class LineSegment < GeometryValue
   def preprocess_prog
     if real_close_point(x1, y1, x2, y2) then Point.new(x1, y1)
     elsif real_close(x1, x2) then 
-      if y1 < y2 then LineSegement.new(x1, y1, x2, y2)
-      else LineSegement.new(x2, y2, x1, y1) end
-    elsif x1 < x2 then LineSegement.new(x1, y1, x2, y2)
-    else LineSegement.new(x2, y2, x1, y1) end
+      if y1 < y2 then LineSegment.new(x1, y1, x2, y2)
+      else LineSegment.new(x2, y2, x1, y1) end
+    elsif x1 < x2 then LineSegment.new(x1, y1, x2, y2)
+    else LineSegment.new(x2, y2, x1, y1) end
   end
 
   def shift(dx, dy)
-    LineSegement.new(x1 + dx, y1 + dy, x2 + dx, y2 + dy)
+    LineSegment.new(x1 + dx, y1 + dy, x2 + dx, y2 + dy)
   end
 
   def intersect other
     other.intersectLineSegment self
   end
-
 end
 
 # Note: there is no need for getter methods for the non-value classes
