@@ -222,7 +222,7 @@ class Line < GeometryValue
   end
 
   def intersectWithSegmentAsLineResult seg
-    self
+    seg
   end
 end
 
@@ -330,16 +330,16 @@ class LineSegment < GeometryValue
 
         if real_close(aYend, bYstart) then Point.new(aXend, aYend)
         elsif aYend < bYstart then NoPoints.new()
-        elsif aYend > bYend then LineSegement.new(bXstart, bYstart, bXend, bYend)
-        else LineSegement.new(bXstart, bYstart, aXend, aYend) end
+        elsif aYend > bYend then LineSegment.new(bXstart, bYstart, bXend, bYend)
+        else LineSegment.new(bXstart, bYstart, aXend, aYend) end
     else
       aXstart, aYstart, aXend, aYend, bXstart, bYstart, bXend, bYend = 
           if x1 < seg2.x1 then [self.x1, self.y1, self.x2, self.y2, seg2.x1, seg2.y1, seg2.x2, seg2.y2] 
           else [seg2.x1, seg2.y1, seg2.x2, seg2.y2, self.x1, self.y1, self.x2, self.y2] end
       if real_close(aXend,bXstart) then Point.new(aXend, aYend)
       elsif aXend < bXstart then NoPoints.new()
-      elsif aXend > bXend then LineSegement(bXstart, bYstart, bXend, bYend)
-      else LineSegement(bXstart, bYstart, aXend, aYend) end
+      elsif aXend > bXend then LineSegment.new(bXstart, bYstart, bXend, bYend)
+      else LineSegment.new(bXstart, bYstart, aXend, aYend) end
     end
   end
 
@@ -350,13 +350,14 @@ end
 class Intersect < GeometryExpression
   # *add* methods to this class -- do *not* change given code and do not
   # override any methods
+  attr_reader :e1, :e2
   def initialize(e1,e2)
     @e1 = e1
     @e2 = e2
   end
 
   def eval_prog env
-    @e1.eval_prog(env).intersect(@e2.eval_prog(env))
+    e1.eval_prog(env).intersect(e2.eval_prog(env))
   end
 
   def preprocess_prog
