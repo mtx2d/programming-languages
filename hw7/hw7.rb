@@ -323,7 +323,7 @@ class LineSegment < GeometryValue
   end
 
   def intersectWithSegmentAsLineResult seg2
-    if real_close(x1, y1) then
+    if real_close(x1, x2) then
         aXstart, aYstart, aXend, aYend, bXstart, bYstart, bXend, bYend = 
           if y1 < seg2.y1 then [self.x1, self.y1, self.x2, self.y2, seg2.x1, seg2.y1, seg2.x2, seg2.y2] 
           else [seg2.x1, seg2.y1, seg2.x2, seg2.y2, self.x1, self.y1, self.x2, self.y2] end
@@ -333,9 +333,12 @@ class LineSegment < GeometryValue
         elsif aYend > bYend then LineSegment.new(bXstart, bYstart, bXend, bYend)
         else LineSegment.new(bXstart, bYstart, aXend, aYend) end
     else
+
       aXstart, aYstart, aXend, aYend, bXstart, bYstart, bXend, bYend = 
           if x1 < seg2.x1 then [self.x1, self.y1, self.x2, self.y2, seg2.x1, seg2.y1, seg2.x2, seg2.y2] 
           else [seg2.x1, seg2.y1, seg2.x2, seg2.y2, self.x1, self.y1, self.x2, self.y2] end
+
+      # puts "DEBUG:#{[aXstart, aYstart, aXend, aYend, bXstart, bYstart, bXend, bYend]}"
       if real_close(aXend,bXstart) then Point.new(aXend, aYend)
       elsif aXend < bXstart then NoPoints.new()
       elsif aXend > bXend then LineSegment.new(bXstart, bYstart, bXend, bYend)
@@ -361,7 +364,8 @@ class Intersect < GeometryExpression
   end
 
   def preprocess_prog
-    self
+    e1.preprocess_prog
+    e2.preprocess_prog
   end
 end
 
@@ -369,6 +373,7 @@ class Let < GeometryExpression
   # *add* methods to this class -- do *not* change given code and do not
   # override any methods
   # Note: Look at Var to guide how you implement Let
+  attr_reader :e1, :e2, :s
   def initialize(s,e1,e2)
     @s = s
     @e1 = e1
@@ -380,7 +385,7 @@ class Let < GeometryExpression
   end
 
   def preprocess_prog
-    self
+    e1.preprocess_prog
   end
 
 end
@@ -405,13 +410,14 @@ end
 class Shift < GeometryExpression
   # *add* methods to this class -- do *not* change given code and do not
   # override any methods
+  attr_reader :e, :dx, :dy
   def initialize(dx,dy,e)
     @dx = dx
     @dy = dy
     @e = e
   end
 
-  def eval_prog
+  def eval_prog env
     e.shift(dx, dy)
   end
 
