@@ -88,11 +88,11 @@ if not (c1.x == SIX)
 end
 c2 = c.intersect(VerticalLine.new(THREE))
 if not ((c2.is_a? VerticalLine) and c2.x == THREE )
-	puts "VerticalLine intersect not working properly"
+	puts "VerticalLine intersect 2 not working properly"
 end
 c3 = c.intersect(VerticalLine.new(FOUR))
 if not ((c3.is_a? NoPoints))
-	puts "VerticalLine intersect not working properly"
+	puts "VerticalLine intersect 3 not working properly"
 end
 
 #LineSegment Tests

@@ -264,7 +264,7 @@ class VerticalLine < GeometryValue
 
   def intersectVerticalLine vl
     if real_close(x, vl.x)
-      x
+      self
     else
       NoPoints.new()
     end
