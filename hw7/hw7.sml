@@ -217,5 +217,7 @@ fun preprocess_prog e =
                                                                   else LineSegment(x2, y2, x1, y1)
                                                   else if x1 < x2 then LineSegment(x1, y1, x2, y2)
                                                   else LineSegment(x2, y2, x1, y1)
+		| Let(s, e1, e2) => Let(s, preprocess_prog(e1), preprocess_prog(e2))
+		| Shift(deltaX, deltaY, exp) => Shift(deltaX, deltaY, preprocess_prog(exp))
 		| _ => e
 
