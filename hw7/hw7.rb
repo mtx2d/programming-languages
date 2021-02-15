@@ -333,12 +333,10 @@ class LineSegment < GeometryValue
         elsif aYend > bYend then LineSegment.new(bXstart, bYstart, bXend, bYend)
         else LineSegment.new(bXstart, bYstart, aXend, aYend) end
     else
-
       aXstart, aYstart, aXend, aYend, bXstart, bYstart, bXend, bYend = 
           if x1 < seg2.x1 then [self.x1, self.y1, self.x2, self.y2, seg2.x1, seg2.y1, seg2.x2, seg2.y2] 
           else [seg2.x1, seg2.y1, seg2.x2, seg2.y2, self.x1, self.y1, self.x2, self.y2] end
 
-      # puts "DEBUG:#{[aXstart, aYstart, aXend, aYend, bXstart, bYstart, bXend, bYend]}"
       if real_close(aXend,bXstart) then Point.new(aXend, aYend)
       elsif aXend < bXstart then NoPoints.new()
       elsif aXend > bXend then LineSegment.new(bXstart, bYstart, bXend, bYend)
@@ -373,7 +371,6 @@ class Let < GeometryExpression
   # *add* methods to this class -- do *not* change given code and do not
   # override any methods
   # Note: Look at Var to guide how you implement Let
-  attr_reader :e1, :e2, :s
   def initialize(s,e1,e2)
     @s = s
     @e1 = e1
@@ -381,11 +378,11 @@ class Let < GeometryExpression
   end
 
   def eval_prog env
-    e2.eval_prog([[s, e1.eval_prog(env)]] + env)
+    @e2.eval_prog([[@s, @e1.eval_prog(env)]] + env)
   end
 
   def preprocess_prog
-    self
+    Let.new(@s, @e1.preprocess_prog, @e2.preprocess_prog)
   end
 
 end
