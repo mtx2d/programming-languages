@@ -160,6 +160,25 @@ if not (l2.x1 == -ONE and l2.y1 == -TWO and l2.x2 == THREE and l2.y2 == FOUR)
 	puts "Let eval_prog should evaluate e2 after adding [s, e1] to the environment"
 end
 
+#Let bind to itself test
+l3 = Let.new("x", NoPoints.new(), NoPoints.new())
+l3 = l3.preprocess_prog.eval_prog([])
+if not (l3.is_a? NoPoints)
+	puts "Let failure"
+end
+
+# Let#preprocess_prog: 
+# Let.new("x",LineSegment.new(1.0,2.0,1.0,2.0),LineSegment.new(2.0,3.0,1.0,0.0)) should preprocess to 
+# Let.new("x",Point.new(1.0,2.0),LineSegment.new(1.0,0.0,2.0,3.0)) (actual result Point.new(1.0,2.0)) [incorrect answer]
+l4 = Let.new("x",LineSegment.new(1.0,2.0,1.0,2.0),LineSegment.new(2.0,3.0,1.0,0.0)) 
+l4 = l4.preprocess_prog.eval_prog([])
+if not (l4.is_a? LineSegment) and (l4.x1 == ONE and l4.y1 == ZERO and l4.x2 == TWO and l4.y2 == ZERO)
+	puts "Let failure"
+end
+
+
+
+
 
 #Shift Tests
 s = Shift.new(THREE,FIVE,LineSegment.new(-ONE,-TWO,THREE,FOUR))

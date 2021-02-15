@@ -381,11 +381,11 @@ class Let < GeometryExpression
   end
 
   def eval_prog env
-    e2.eval_prog([[s, e1.eval_prog]] + env)
+    e2.eval_prog([[s, e1.eval_prog(env)]] + env)
   end
 
   def preprocess_prog
-    e1.preprocess_prog
+    self
   end
 
 end
